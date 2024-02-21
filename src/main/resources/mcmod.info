@@ -1,0 +1,18 @@
+[
+  {
+    "modid": "salamanderlib",
+    "name": "SalamanderLib",
+    "description": "",
+    "version": "${version}",
+    "mcversion": "${mcversion}",
+    "url": "",
+    "updateUrl": "",
+    "authorList": [
+      "Goodbird"
+    ],
+    "credits": "MCHorse, Gecko",
+    "logoFile": "",
+    "screenshots": [],
+    "dependencies": []
+  }
+]
