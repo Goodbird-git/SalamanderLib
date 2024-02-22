@@ -1,9 +1,10 @@
 package mchorse.blockbuster.client.particles;
 
+import com.eliotlash.molang.AdvMolangParser;
+import com.goodbird.salamanderlib.SalamanderLib;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
-import mchorse.blockbuster.Blockbuster;
 import mchorse.blockbuster.client.particles.components.BedrockComponentBase;
 import mchorse.blockbuster.client.particles.components.IComponentBase;
 import mchorse.blockbuster.client.particles.components.IComponentEmitterInitialize;
@@ -13,9 +14,9 @@ import mchorse.blockbuster.client.particles.components.IComponentParticleMorphRe
 import mchorse.blockbuster.client.particles.components.IComponentParticleRender;
 import mchorse.blockbuster.client.particles.components.IComponentParticleUpdate;
 import mchorse.blockbuster.client.particles.components.motion.BedrockComponentInitialSpeed;
-import mchorse.mclib.math.Variable;
-import mchorse.mclib.math.molang.MolangParser;
 import net.minecraft.util.ResourceLocation;
+import software.bernie.shadowed.eliotlash.mclib.math.Variable;
+import software.bernie.shadowed.eliotlash.molang.MolangParser;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,7 +28,7 @@ import java.util.Map;
 
 public class BedrockScheme
 {
-    public static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(Blockbuster.MOD_ID, "textures/default_particles.png");
+    public static final ResourceLocation DEFAULT_TEXTURE = new ResourceLocation(SalamanderLib.MODID, "textures/default_particles.png");
     public static final Gson JSON_PARSER = new GsonBuilder()
         .registerTypeAdapter(BedrockScheme.class, new BedrockSchemeJsonAdapter())
         .create();
@@ -82,7 +83,7 @@ public class BedrockScheme
 
     public BedrockScheme()
     {
-        this.parser = new MolangParser();
+        this.parser = new AdvMolangParser();
 
         /* Default variables */
         this.parser.register(new Variable("variable.particle_age", 0));

@@ -54,7 +54,7 @@ public class RLUtils
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 ImageIO.write(TextureProcessor.postProcess(multi), "png", stream);
 
-                return new SimpleResource(multi, new ByteArrayInputStream(stream.toByteArray()), null, null);
+                return new SimpleResource("McLib multiskin handler", multi, new ByteArrayInputStream(stream.toByteArray()), null, null);
             //}
         }
         catch (IOException e)
@@ -107,7 +107,7 @@ public class RLUtils
 
         if (base instanceof NBTTagString)
         {
-            return create(((NBTTagString) base).func_150285_a_());
+            return create(((NBTTagString) base).getString());
         }
 
         return null;

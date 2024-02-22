@@ -1,16 +1,15 @@
 package mchorse.blockbuster.client.particles.emitter;
 
+import com.eliotlash.mclib.utils.DummyEntity;
+import com.eliotlash.mclib.utils.MatrixUtils;
 import mchorse.blockbuster.client.particles.components.appearance.BedrockComponentCollisionAppearance;
 import mchorse.blockbuster.client.particles.components.appearance.BedrockComponentCollisionTinting;
-import mchorse.mclib.math.molang.expressions.MolangExpression;
-import mchorse.mclib.utils.DummyEntity;
-import mchorse.mclib.utils.MatrixUtils;
-import mchorse.metamorph.api.Morph;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
 
 import javax.vecmath.*;
 import java.util.HashMap;
@@ -24,7 +23,7 @@ public class BedrockParticle
     public float random3 = (float) Math.random();
     public float random4 = (float) Math.random();
 
-    public Morph morph = new Morph();
+    //public Morph morph = new Morph();
     private DummyEntity dummy;
 
     /* States */
@@ -329,14 +328,14 @@ public class BedrockParticle
             this.position.y += speed0.y / 20F;
             this.position.z += speed0.z / 20F;
 
-            if (!this.morph.isEmpty())
-            {
-                EntityLivingBase dummy = this.getDummy(emitter);
-
-                this.morph.get().update(dummy);
-
-                dummy.ticksExisted += 1;
-            }
+//            if (!this.morph.isEmpty())
+//            {
+//                EntityLivingBase dummy = this.getDummy(emitter);
+//
+//                this.morph.get().update(dummy);
+//
+//                dummy.ticksExisted += 1;
+//            }
         }
 
         if (this.lifetime >= 0 &&

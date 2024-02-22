@@ -4,7 +4,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import mchorse.blockbuster.client.particles.emitter.BedrockParticle;
-import mchorse.mclib.math.molang.expressions.MolangExpression;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
 
 import javax.vecmath.Vector3d;
 

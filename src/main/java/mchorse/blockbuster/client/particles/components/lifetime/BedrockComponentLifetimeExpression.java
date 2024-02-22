@@ -4,10 +4,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import mchorse.blockbuster.client.particles.components.BedrockComponentBase;
 import mchorse.blockbuster.client.particles.emitter.BedrockEmitter;
-import mchorse.mclib.math.Operation;
-import mchorse.mclib.math.molang.MolangException;
-import mchorse.mclib.math.molang.MolangParser;
-import mchorse.mclib.math.molang.expressions.MolangExpression;
+import software.bernie.shadowed.eliotlash.mclib.math.Operation;
+import software.bernie.shadowed.eliotlash.molang.MolangException;
+import software.bernie.shadowed.eliotlash.molang.MolangParser;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
 
 public class BedrockComponentLifetimeExpression extends BedrockComponentLifetime
 {

@@ -5,12 +5,12 @@ import com.google.gson.JsonObject;
 import mchorse.blockbuster.client.particles.components.BedrockComponentBase;
 import mchorse.blockbuster.client.particles.components.IComponentEmitterUpdate;
 import mchorse.blockbuster.client.particles.emitter.BedrockEmitter;
-import mchorse.mclib.math.Constant;
-import mchorse.mclib.math.Operation;
-import mchorse.mclib.math.molang.MolangException;
-import mchorse.mclib.math.molang.MolangParser;
-import mchorse.mclib.math.molang.expressions.MolangExpression;
-import mchorse.mclib.math.molang.expressions.MolangValue;
+import software.bernie.shadowed.eliotlash.mclib.math.Constant;
+import software.bernie.shadowed.eliotlash.mclib.math.Operation;
+import software.bernie.shadowed.eliotlash.molang.MolangException;
+import software.bernie.shadowed.eliotlash.molang.MolangParser;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangValue;
 
 public class BedrockComponentRateInstant extends BedrockComponentRate implements IComponentEmitterUpdate
 {

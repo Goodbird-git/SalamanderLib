@@ -3,12 +3,12 @@ package mchorse.blockbuster.client.particles;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import mchorse.mclib.math.Variable;
-import mchorse.mclib.math.molang.MolangException;
-import mchorse.mclib.math.molang.MolangParser;
-import mchorse.mclib.math.molang.expressions.MolangExpression;
-import mchorse.mclib.utils.Interpolations;
-import mchorse.mclib.utils.MathUtils;
+import software.bernie.shadowed.eliotlash.mclib.math.Variable;
+import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
+import software.bernie.shadowed.eliotlash.mclib.utils.MathUtils;
+import software.bernie.shadowed.eliotlash.molang.MolangException;
+import software.bernie.shadowed.eliotlash.molang.MolangParser;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
 
 public class BedrockCurve
 {

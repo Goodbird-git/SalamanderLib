@@ -1,8 +1,8 @@
 package mchorse.blockbuster.client.particles;
 
-import mchorse.mclib.utils.JsonUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
+import software.bernie.shadowed.eliotlash.mclib.utils.JsonUtils;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;

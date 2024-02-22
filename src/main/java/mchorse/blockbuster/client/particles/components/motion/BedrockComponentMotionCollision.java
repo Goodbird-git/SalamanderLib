@@ -7,17 +7,15 @@ import mchorse.blockbuster.client.particles.components.BedrockComponentBase;
 import mchorse.blockbuster.client.particles.components.IComponentParticleUpdate;
 import mchorse.blockbuster.client.particles.emitter.BedrockEmitter;
 import mchorse.blockbuster.client.particles.emitter.BedrockParticle;
-import mchorse.blockbuster.utils.EntityTransformationUtils;
-import mchorse.mclib.math.Operation;
-import mchorse.mclib.math.molang.MolangException;
-import mchorse.mclib.math.molang.MolangParser;
-import mchorse.mclib.math.molang.expressions.MolangExpression;
-import mchorse.mclib.utils.MathUtils;
-import mchorse.metamorph.api.MorphUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import software.bernie.shadowed.eliotlash.mclib.math.Operation;
+import software.bernie.shadowed.eliotlash.mclib.utils.MathUtils;
+import software.bernie.shadowed.eliotlash.molang.MolangException;
+import software.bernie.shadowed.eliotlash.molang.MolangParser;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
 
 import javax.annotation.Nullable;
 import javax.vecmath.Vector3d;
@@ -537,9 +535,9 @@ public class BedrockComponentMotionCollision extends BedrockComponentBase implem
 
         Vector3d entitySpeed = new Vector3d((entity.posX - entity.prevPosX), (entity.posY - entity.prevPosY), (entity.posZ - entity.prevPosZ));
 
-        double prevPrevPosX = EntityTransformationUtils.getPrevPrevPosX(entity);
-        double prevPrevPosY = EntityTransformationUtils.getPrevPrevPosY(entity);
-        double prevPrevPosZ = EntityTransformationUtils.getPrevPrevPosZ(entity);
+        double prevPrevPosX = entity.prevPosX; //EntityTransformationUtils.getPrevPrevPosX(entity);
+        double prevPrevPosY = entity.prevPosY;//EntityTransformationUtils.getPrevPrevPosY(entity);
+        double prevPrevPosZ = entity.prevPosZ; //EntityTransformationUtils.getPrevPrevPosZ(entity);
 
         Vector3d prevEntitySpeed = new Vector3d(entity.prevPosX-prevPrevPosX, entity.prevPosY-prevPrevPosY, entity.prevPosZ-prevPrevPosZ);
 
@@ -627,7 +625,7 @@ public class BedrockComponentMotionCollision extends BedrockComponentBase implem
 
             splitParticle.position.set(now);
             splitParticle.prevPosition.set(prev);
-            splitParticle.morph.setDirect(MorphUtils.copy(particle.morph.get()));
+            //splitParticle.morph.setDirect(MorphUtils.copy(particle.morph.get()));
 
             splitParticle.bounces = 1;
 

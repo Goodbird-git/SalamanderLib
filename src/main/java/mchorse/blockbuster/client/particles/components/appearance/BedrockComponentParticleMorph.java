@@ -3,17 +3,11 @@ package mchorse.blockbuster.client.particles.components.appearance;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import mchorse.blockbuster.client.particles.components.BedrockComponentBase;
+import mchorse.blockbuster.client.particles.components.GuiModelRenderer;
 import mchorse.blockbuster.client.particles.components.IComponentParticleInitialize;
 import mchorse.blockbuster.client.particles.components.IComponentParticleMorphRender;
 import mchorse.blockbuster.client.particles.emitter.BedrockEmitter;
 import mchorse.blockbuster.client.particles.emitter.BedrockParticle;
-import mchorse.mclib.client.gui.framework.elements.GuiModelRenderer;
-import mchorse.mclib.math.molang.MolangException;
-import mchorse.mclib.math.molang.MolangParser;
-import mchorse.mclib.utils.Interpolations;
-import mchorse.metamorph.api.Morph;
-import mchorse.metamorph.api.MorphManager;
-import mchorse.metamorph.api.MorphUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -25,6 +19,9 @@ import net.minecraft.nbt.JsonToNBT;
 import net.minecraft.nbt.NBTException;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
+import software.bernie.shadowed.eliotlash.molang.MolangException;
+import software.bernie.shadowed.eliotlash.molang.MolangParser;
 
 import javax.vecmath.Matrix3d;
 import javax.vecmath.Vector3d;
@@ -34,7 +31,7 @@ public class BedrockComponentParticleMorph extends BedrockComponentBase implemen
 {
     public boolean enabled;
     public boolean renderTexture;
-    public Morph morph = new Morph();
+    //public Morph morph = new Morph();
 
     @Override
     public BedrockComponentBase fromJson(JsonElement elem, MolangParser parser) throws MolangException
@@ -48,11 +45,11 @@ public class BedrockComponentParticleMorph extends BedrockComponentBase implemen
 
         if (element.has("nbt"))
         {
-            try
-            {
-                this.morph.setDirect(MorphManager.INSTANCE.morphFromNBT(JsonToNBT.getTagFromJson(element.get("nbt").getAsString())));
-            }
-            catch(NBTException e) { }
+//            try
+//            {
+//                this.morph.setDirect(MorphManager.INSTANCE.morphFromNBT(JsonToNBT.getTagFromJson(element.get("nbt").getAsString())));
+//            }
+//            catch(NBTException e) { }
         }
 
         return super.fromJson(element, parser);
@@ -65,7 +62,7 @@ public class BedrockComponentParticleMorph extends BedrockComponentBase implemen
 
         object.addProperty("enabled", this.enabled);
         object.addProperty("render_texture", this.renderTexture);
-        if (!this.morph.isEmpty()) object.addProperty("nbt", this.morph.toNBT().toString());
+        //if (!this.morph.isEmpty()) object.addProperty("nbt", this.morph.toNBT().toString());
 
         return object;
     }
@@ -73,10 +70,10 @@ public class BedrockComponentParticleMorph extends BedrockComponentBase implemen
     @Override
     public void apply(BedrockEmitter emitter, BedrockParticle particle)
     {
-        if (this.enabled && !this.morph.isEmpty())
-        {
-            particle.morph.set(MorphUtils.copy(this.morph.get()));
-        }
+//        if (this.enabled && !this.morph.isEmpty())
+//        {
+//            particle.morph.set(MorphUtils.copy(this.morph.get()));
+//        }
     }
 
     @SideOnly(Side.CLIENT)
@@ -85,10 +82,10 @@ public class BedrockComponentParticleMorph extends BedrockComponentBase implemen
     {
         Entity camera = Minecraft.getMinecraft().getRenderViewEntity();
 
-        if (camera == null || this.morph.isEmpty() || !this.enabled)
-        {
-            return;
-        }
+//        if (camera == null || this.morph.isEmpty() || !this.enabled)
+//        {
+//            return;
+//        }
 
         EntityLivingBase dummy = particle.getDummy(emitter);
 
@@ -124,7 +121,7 @@ public class BedrockComponentParticleMorph extends BedrockComponentBase implemen
             GlStateManager.scale(emitter.scale[0], emitter.scale[1], emitter.scale[2]);
         }
 
-        MorphUtils.render(this.morph.get(), dummy, 0, 0, 0, 0, partialTicks);
+        //MorphUtils.render(this.morph.get(), dummy, 0, 0, 0, 0, partialTicks);
 
         RenderHelper.disableStandardItemLighting();
         GlStateManager.popMatrix();
@@ -184,10 +181,10 @@ public class BedrockComponentParticleMorph extends BedrockComponentBase implemen
     @Override
     public void renderOnScreen(BedrockParticle particle, int x, int y, float scale, float partialTicks)
     {
-        if (this.enabled && !particle.morph.isEmpty() && particle.morph.get() != null)
-        {
-            particle.morph.get().renderOnScreen(Minecraft.getMinecraft().player, x, y, scale, 1F);
-        }
+//        if (this.enabled && !particle.morph.isEmpty() && particle.morph.get() != null)
+//        {
+//            particle.morph.get().renderOnScreen(Minecraft.getMinecraft().player, x, y, scale, 1F);
+//        }
     }
 
     @Override

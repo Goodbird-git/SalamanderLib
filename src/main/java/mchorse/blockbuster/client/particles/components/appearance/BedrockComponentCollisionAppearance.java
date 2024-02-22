@@ -1,5 +1,6 @@
 package mchorse.blockbuster.client.particles.components.appearance;
 
+import com.eliotlash.mclib.utils.resources.RLUtils;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import mchorse.blockbuster.client.particles.BedrockMaterial;
@@ -8,15 +9,13 @@ import mchorse.blockbuster.client.particles.components.BedrockComponentBase;
 import mchorse.blockbuster.client.particles.components.IComponentParticleRender;
 import mchorse.blockbuster.client.particles.emitter.BedrockEmitter;
 import mchorse.blockbuster.client.particles.emitter.BedrockParticle;
-import mchorse.mclib.client.gui.framework.elements.GuiModelRenderer;
-import mchorse.mclib.math.molang.MolangException;
-import mchorse.mclib.math.molang.MolangParser;
-import mchorse.mclib.math.molang.expressions.MolangExpression;
-import mchorse.mclib.utils.Interpolations;
-import mchorse.mclib.utils.resources.RLUtils;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
+import software.bernie.shadowed.eliotlash.molang.MolangException;
+import software.bernie.shadowed.eliotlash.molang.MolangParser;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
 
 import java.util.Map;
 import java.util.Set;

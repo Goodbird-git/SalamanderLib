@@ -7,12 +7,12 @@ import mchorse.blockbuster.client.particles.components.IComponentParticleMorphRe
 import mchorse.blockbuster.client.particles.components.IComponentParticleRender;
 import mchorse.blockbuster.client.particles.emitter.BedrockEmitter;
 import mchorse.blockbuster.client.particles.emitter.BedrockParticle;
-import mchorse.mclib.math.Constant;
-import mchorse.mclib.math.molang.MolangException;
-import mchorse.mclib.math.molang.MolangParser;
-import mchorse.mclib.math.molang.expressions.MolangExpression;
-import mchorse.mclib.math.molang.expressions.MolangValue;
 import net.minecraft.client.renderer.BufferBuilder;
+import software.bernie.shadowed.eliotlash.mclib.math.Constant;
+import software.bernie.shadowed.eliotlash.molang.MolangException;
+import software.bernie.shadowed.eliotlash.molang.MolangParser;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangValue;
 
 public class BedrockComponentRateSteady extends BedrockComponentRate implements IComponentParticleRender, IComponentParticleMorphRender
 {

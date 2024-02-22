@@ -1,21 +1,13 @@
 package mchorse.blockbuster.client.particles.emitter;
 
-import mchorse.blockbuster.Blockbuster;
+import com.eliotlash.mclib.utils.resources.GifTexture;
 import mchorse.blockbuster.client.particles.BedrockScheme;
 import mchorse.blockbuster.client.particles.components.*;
 import mchorse.blockbuster.client.particles.components.appearance.BedrockComponentAppearanceBillboard;
 import mchorse.blockbuster.client.particles.components.appearance.BedrockComponentCollisionAppearance;
-import mchorse.blockbuster.client.particles.components.appearance.BedrockComponentCollisionTinting;
 import mchorse.blockbuster.client.particles.components.appearance.BedrockComponentParticleMorph;
 import mchorse.blockbuster.client.particles.components.meta.BedrockComponentInitialization;
 import mchorse.blockbuster.client.particles.components.rate.BedrockComponentRateSteady;
-import mchorse.blockbuster.client.textures.GifTexture;
-import mchorse.mclib.client.gui.framework.elements.GuiModelRenderer;
-import mchorse.mclib.math.IValue;
-import mchorse.mclib.math.Variable;
-import mchorse.mclib.math.molang.MolangParser;
-import mchorse.mclib.math.molang.expressions.MolangExpression;
-import mchorse.mclib.utils.Interpolations;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -27,6 +19,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.lwjgl.opengl.GL11;
+import software.bernie.shadowed.eliotlash.mclib.math.IValue;
+import software.bernie.shadowed.eliotlash.mclib.math.Variable;
+import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
 
 import javax.vecmath.Matrix3f;
 import javax.vecmath.Vector3d;
@@ -275,7 +270,7 @@ public class BedrockEmitter
 
             if (var != null)
             {
-                var.set(entry.getValue().get().doubleValue());
+                var.set(entry.getValue().get());
             }
         }
     }
@@ -691,7 +686,7 @@ public class BedrockEmitter
 
     private void depthSorting()
     {
-        if (Blockbuster.snowstormDepthSorting.get())
+        if (true)//TODO Blockbuster.snowstormDepthSorting.get())
         {
             this.particles.sort((a, b) ->
             {

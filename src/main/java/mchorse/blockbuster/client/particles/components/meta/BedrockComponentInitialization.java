@@ -1,17 +1,18 @@
 package mchorse.blockbuster.client.particles.components.meta;
 
+import com.eliotlash.molang.AdvMolangParser;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import mchorse.blockbuster.client.particles.components.BedrockComponentBase;
 import mchorse.blockbuster.client.particles.components.IComponentEmitterInitialize;
 import mchorse.blockbuster.client.particles.components.IComponentEmitterUpdate;
 import mchorse.blockbuster.client.particles.emitter.BedrockEmitter;
-import mchorse.mclib.math.IValue;
-import mchorse.mclib.math.molang.MolangException;
-import mchorse.mclib.math.molang.MolangParser;
-import mchorse.mclib.math.molang.expressions.MolangAssignment;
-import mchorse.mclib.math.molang.expressions.MolangExpression;
-import mchorse.mclib.math.molang.expressions.MolangMultiStatement;
+import software.bernie.shadowed.eliotlash.mclib.math.IValue;
+import software.bernie.shadowed.eliotlash.molang.MolangException;
+import software.bernie.shadowed.eliotlash.molang.MolangParser;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangAssignment;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
+import software.bernie.shadowed.eliotlash.molang.expressions.MolangMultiStatement;
 
 import java.util.Map;
 
@@ -30,9 +31,9 @@ public class BedrockComponentInitialization extends BedrockComponentBase impleme
 
         JsonObject element = elem.getAsJsonObject();
 
-        if (element.has("creation_expression")) this.creation = parser.parseGlobalJson(element.get("creation_expression"));
-        if (element.has("per_update_expression")) this.update = parser.parseGlobalJson(element.get("per_update_expression"));
-        if (element.has("particle_update_expression")) this.particleUpdate = parser.parseGlobalJson(element.get("particle_update_expression"));
+        if (element.has("creation_expression")) this.creation = ((AdvMolangParser)parser).parseGlobalJson(element.get("creation_expression"));
+        if (element.has("per_update_expression")) this.update = ((AdvMolangParser)parser).parseGlobalJson(element.get("per_update_expression"));
+        if (element.has("particle_update_expression")) this.particleUpdate = ((AdvMolangParser)parser).parseGlobalJson(element.get("particle_update_expression"));
 
         return super.fromJson(element, parser);
     }
@@ -61,7 +62,7 @@ public class BedrockComponentInitialization extends BedrockComponentBase impleme
         {
             for (Map.Entry<String, IValue> entry : emitter.variables.entrySet())
             {
-                emitter.initialValues.put(entry.getKey(), entry.getValue().get().doubleValue());
+                emitter.initialValues.put(entry.getKey(), entry.getValue().get());
             }
         }
     }
@@ -97,6 +98,6 @@ public class BedrockComponentInitialization extends BedrockComponentBase impleme
 
     private void cacheInitialValue(MolangAssignment assignment, BedrockEmitter emitter)
     {
-        emitter.initialValues.put(assignment.variable.getName(), assignment.variable.get().doubleValue());
+        emitter.initialValues.put(assignment.variable.getName(), assignment.variable.get());
     }
 }

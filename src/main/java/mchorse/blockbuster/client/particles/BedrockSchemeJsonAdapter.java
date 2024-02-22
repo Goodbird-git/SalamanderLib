@@ -1,5 +1,6 @@
 package mchorse.blockbuster.client.particles;
 
+import com.eliotlash.mclib.utils.resources.RLUtils;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 import com.google.gson.JsonDeserializationContext;
@@ -38,9 +39,8 @@ import mchorse.blockbuster.client.particles.components.shape.BedrockComponentSha
 import mchorse.blockbuster.client.particles.components.shape.BedrockComponentShapeEntityAABB;
 import mchorse.blockbuster.client.particles.components.shape.BedrockComponentShapePoint;
 import mchorse.blockbuster.client.particles.components.shape.BedrockComponentShapeSphere;
-import mchorse.mclib.math.Operation;
-import mchorse.mclib.math.molang.MolangException;
-import mchorse.mclib.utils.resources.RLUtils;
+import software.bernie.shadowed.eliotlash.mclib.math.Operation;
+import software.bernie.shadowed.eliotlash.molang.MolangException;
 
 import java.lang.reflect.Type;
 import java.util.Map;
