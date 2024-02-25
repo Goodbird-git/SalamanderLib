@@ -1,7 +1,7 @@
 package com.goodbird.salamanderlib.particles;
 
 import com.goodbird.salamanderlib.molang.AdvMolangParser;
-import com.goodbird.salamanderlib.SalamanderLib;
+import com.goodbird.salamanderlib.example.SalamanderLib;
 import com.goodbird.salamanderlib.particles.components.IComponentEmitterInitialize;
 import com.goodbird.salamanderlib.particles.components.IComponentEmitterUpdate;
 import com.goodbird.salamanderlib.particles.components.IComponentParticleRender;
@@ -36,6 +36,9 @@ public class BedrockScheme
     /* Particles identifier */
     public String identifier = "";
 
+    /* Particles name in BedrockLibrary */
+    public String name = "";
+
     /* Particle description */
     public BedrockMaterial material = BedrockMaterial.OPAQUE;
     public ResourceLocation texture = DEFAULT_TEXTURE;
@@ -56,6 +59,7 @@ public class BedrockScheme
 
     /* MoLang integration */
     public MolangParser parser;
+    public boolean toReload = false;
 
     public static BedrockScheme parse(String json)
     {

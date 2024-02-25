@@ -1,5 +1,7 @@
 package com.goodbird.salamanderlib.particles;
 
+import com.goodbird.salamanderlib.watchers.ParticleDirWatcher;
+import net.minecraft.util.ResourceLocation;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import software.bernie.shadowed.eliotlash.mclib.utils.JsonUtils;
@@ -9,134 +11,135 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-public class BedrockLibrary
-{
+public class BedrockLibrary {
     public static long lastUpdate;
 
     public Map<String, BedrockScheme> presets = new HashMap<String, BedrockScheme>();
     public Map<String, BedrockScheme> factory = new HashMap<String, BedrockScheme>();
     public File folder;
+    public ParticleDirWatcher updateController;
+    public static BedrockLibrary instance;
 
-    public BedrockLibrary(File folder)
-    {
+    public BedrockLibrary(File folder) {
+        instance = this;
         this.folder = folder;
         this.folder.mkdirs();
-
-        /* Load factory (default) presets */
-        this.storeFactory("default_fire");
-        this.storeFactory("default_magic");
-        this.storeFactory("default_rain");
-        this.storeFactory("default_snow");
+        updateController = new ParticleDirWatcher(folder);
+        updateController.start();
     }
 
-    public File file(String name)
-    {
+    public File file(String name) {
         return new File(this.folder, name + ".json");
     }
 
-    public boolean hasEffect(String name)
-    {
+    public boolean hasEffect(String name) {
         return this.file(name).isFile();
     }
 
-    public void reload()
-    {
+    public void reload() {
         this.presets.clear();
         this.presets.putAll(this.factory);
-
-        for (File file : this.folder.listFiles())
-        {
-            if (file.isFile() && file.getName().endsWith(".json"))
-            {
+        recursiveWalk(this.folder);
+    }
+    public void recursiveWalk(File folder){
+        for (File file : folder.listFiles()) {
+            if (file.isFile() && file.getName().endsWith(".json")) {
                 this.storeScheme(file);
+            }
+            if(file.isDirectory()){
+                recursiveWalk(file);
             }
         }
     }
 
-    public BedrockScheme load(String name)
-    {
-        BedrockScheme scheme = this.loadScheme(this.file(name));
-
-        if (scheme != null)
-        {
-            return scheme;
+    public BedrockScheme get(String identifier) {
+        for (BedrockScheme scheme: presets.values()) {
+            if(scheme.identifier.equals(identifier)){
+                return scheme;
+            }
         }
-
-        return this.loadFactory(name);
+        return null;
     }
 
-    private void storeScheme(File file)
-    {
+    public void remove(String name) {
+
+        name = name.substring(0, name.indexOf(".json"));
+        if (presets.containsKey(name)) {
+            presets.remove(name);
+        }
+    }
+
+    public void storeScheme(File file) {
         BedrockScheme scheme = this.loadScheme(file);
 
-        if (scheme != null)
-        {
+        if (scheme != null) {
             String name = file.getName();
-
-            this.presets.put(name.substring(0, name.indexOf(".json")), scheme);
+            String schemeName = name.substring(0, name.indexOf(".json"));
+            if (presets.containsKey(schemeName)) {
+                presets.get(schemeName).toReload = true;
+            }
+            scheme.name=schemeName;
+            this.presets.put(schemeName, scheme);
         }
     }
 
     /**
      * Load a scheme from a file
      */
-    public BedrockScheme loadScheme(File file)
-    {
-        if (!file.exists())
-        {
+    public BedrockScheme loadScheme(File file) {
+        if (!file.exists()) {
             return null;
         }
 
-        try
-        {
-            return BedrockScheme.parse(FileUtils.readFileToString(file, StandardCharsets.UTF_8));
-        }
-        catch (Exception e)
-        {
+        try {
+            String contents = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
+            if (contents.isEmpty()) {
+                return null;
+            }
+            return BedrockScheme.parse(contents);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return null;
     }
 
-    private void storeFactory(String name)
-    {
+    public void storeFactory(ResourceLocation name) {
         BedrockScheme scheme = this.loadFactory(name);
 
-        if (scheme != null)
-        {
-            this.factory.put(name, scheme);
+        if (scheme != null) {
+            scheme.name=getName(name);
+            this.factory.put(getName(name), scheme);
         }
     }
 
     /**
      * Load a scheme from Blockbuster's zip
      */
-    public BedrockScheme loadFactory(String name)
-    {
-        try
-        {
-            return BedrockScheme.parse(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("assets/blockbuster/particles/" + name + ".json"), StandardCharsets.UTF_8)).factory(true);
-        }
-        catch (Exception e)
-        {
+    public BedrockScheme loadFactory(ResourceLocation resLoc) {
+        try {
+            return BedrockScheme.parse(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("assets/"+resLoc.getResourceDomain()+"/" + resLoc.getResourcePath()), StandardCharsets.UTF_8)).factory(true);
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         return null;
     }
 
-    public void save(String filename, BedrockScheme scheme)
-    {
+    public String getName(ResourceLocation resLoc){
+        String[] parts = resLoc.getResourcePath().split("/");
+        String name = parts[parts.length-1];
+        return name.substring(0, name.indexOf(".json"));
+    }
+
+    public void save(String filename, BedrockScheme scheme) {
         String json = JsonUtils.jsonToPretty(BedrockScheme.toJson(scheme));
         File file = this.file(filename);
 
-        try
-        {
+        try {
             FileUtils.writeStringToFile(file, json, StandardCharsets.UTF_8);
+        } catch (Exception e) {
         }
-        catch (Exception e)
-        {}
 
         this.storeScheme(file);
 

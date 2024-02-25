@@ -3,11 +3,12 @@ package com.goodbird.salamanderlib.particles.emitter;
 import com.goodbird.salamanderlib.mclib.utils.resources.GifTexture;
 import com.goodbird.salamanderlib.particles.BedrockScheme;
 import com.goodbird.salamanderlib.particles.components.*;
-import mchorse.blockbuster.client.particles.components.*;
 import com.goodbird.salamanderlib.particles.components.appearance.BedrockComponentAppearanceBillboard;
 import com.goodbird.salamanderlib.particles.components.appearance.BedrockComponentCollisionAppearance;
 import com.goodbird.salamanderlib.particles.components.appearance.BedrockComponentParticleMorph;
+import com.goodbird.salamanderlib.particles.components.lifetime.BedrockComponentLifetimeLooping;
 import com.goodbird.salamanderlib.particles.components.meta.BedrockComponentInitialization;
+import com.goodbird.salamanderlib.particles.components.motion.BedrockComponentMotionCollision;
 import com.goodbird.salamanderlib.particles.components.rate.BedrockComponentRateSteady;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
@@ -32,6 +33,9 @@ import java.util.*;
 public class BedrockEmitter
 {
     public BedrockScheme scheme;
+    public String locator;
+    public int disableAfter=-1;
+    public double lastTick=0;
     public List<BedrockParticle> particles = new ArrayList<BedrockParticle>();
     public List<BedrockParticle> splitParticles = new ArrayList<BedrockParticle>();
     public Map<String, IValue> variables;
@@ -69,6 +73,7 @@ public class BedrockEmitter
 
     public double[] scale = {1,1,1};
 
+    public boolean lastLoop=false;
     /* Camera properties */
     public int perspective;
     public float cYaw;
@@ -103,6 +108,19 @@ public class BedrockEmitter
     public boolean isFinished()
     {
         return !this.running && this.particles.isEmpty();
+    }
+
+    public boolean isLooping() {
+        for(BedrockComponentBase componentBase: scheme.components){
+            if(componentBase instanceof BedrockComponentLifetimeLooping){
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public void setLastLoop(){
+        lastLoop=true;
     }
 
     public double getDistanceSq()
@@ -359,6 +377,38 @@ public class BedrockEmitter
         }
     }
 
+    private void updateParticlesCollision()
+    {
+        BedrockComponentMotionCollision collision = null;
+        for (IComponentParticleUpdate component : this.scheme.particleUpdates)
+        {
+            if(component instanceof BedrockComponentMotionCollision) {
+                collision=(BedrockComponentMotionCollision) component;
+            }
+        }
+        if(collision==null) return;
+
+        Iterator<BedrockParticle> it = this.particles.iterator();
+
+        while (it.hasNext())
+        {
+            BedrockParticle particle = it.next();
+
+            collision.update(this,particle);
+
+            if (particle.dead)
+            {
+                it.remove();
+            }
+        }
+
+        if (!this.splitParticles.isEmpty())
+        {
+            this.particles.addAll(this.splitParticles);
+            this.splitParticles.clear();
+        }
+    }
+
     /**
      * Update a single particle
      */
@@ -511,7 +561,7 @@ public class BedrockEmitter
 
         boolean morphRendering = this.isMorphParticle();
         boolean particleRendering = !morphRendering || particleMorphComponent.renderTexture;
-
+        updateParticlesCollision();
         /* particle rendering */
         if (particleRendering)
         {
@@ -660,14 +710,14 @@ public class BedrockEmitter
 
         if (!GuiModelRenderer.isRendering())
         {
-            Entity camera = Minecraft.getMinecraft().getRenderViewEntity();
-            double playerX = camera.prevPosX + (camera.posX - camera.prevPosX) * (double) partialTicks;
-            double playerY = camera.prevPosY + (camera.posY - camera.prevPosY) * (double) partialTicks;
-            double playerZ = camera.prevPosZ + (camera.posZ - camera.prevPosZ) * (double) partialTicks;
-
-            BufferBuilder builder = Tessellator.getInstance().getBuffer();
-
-            builder.setTranslation(-playerX, -playerY, -playerZ);
+//            Entity camera = Minecraft.getMinecraft().getRenderViewEntity();
+//            double playerX = camera.prevPosX + (camera.posX - camera.prevPosX) * (double) partialTicks;
+//            double playerY = camera.prevPosY + (camera.posY - camera.prevPosY) * (double) partialTicks;
+//            double playerZ = camera.prevPosZ + (camera.posZ - camera.prevPosZ) * (double) partialTicks;
+//
+//            BufferBuilder builder = Tessellator.getInstance().getBuffer();
+//
+//            builder.setTranslation(-playerX, -playerY, -playerZ);
 
             GlStateManager.disableCull();
             GlStateManager.enableTexture2D();
