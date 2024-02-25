@@ -43,38 +43,21 @@ public class AdvMolangParser extends MolangParser{
         this.functions.put("atan", AtanDegrees.class);
         this.functions.put("atan2", Atan2Degrees.class);
 
-        /* Remap functions to be in tact with Molang specification */
-        this.remap("abs", "math.abs");
-        this.remap("ceil", "math.ceil");
-        this.remap("clamp", "math.clamp");
         this.remap("cos", "math.cos");
-        this.remap("exp", "math.exp");
-        this.remap("floor", "math.floor");
-        this.remap("lerp", "math.lerp");
-        this.remap("lerprotate", "math.lerprotate");
-        this.remap("ln", "math.ln");
-        this.remap("max", "math.max");
-        this.remap("min", "math.min");
-        this.remap("mod", "math.mod");
-        this.remap("pow", "math.pow");
-        this.remap("random", "math.random");
-        this.remap("round", "math.round");
         this.remap("sin", "math.sin");
-        this.remap("sqrt", "math.sqrt");
-        this.remap("trunc", "math.trunc");
 
         /* New functions in 1.16 */
         this.remap("acos", "math.acos");
         this.remap("asin", "math.asin");
         this.remap("atan", "math.atan");
         this.remap("atan2", "math.atan2");
-        this.remap("randomi", "math.random_integer");
-        this.remap("roll", "math.die_roll");
-        this.remap("rolli", "math.die_roll_integer");
-        this.remap("hermite", "math.hermite_blend");
+//        this.remap("randomi", "math.random_integer");
+//        this.remap("roll", "math.die_roll");
+//        this.remap("rolli", "math.die_roll_integer");
+//        this.remap("hermite", "math.hermite_blend");
 
-        /* Remap variables as well */
-        this.remapVar("PI", "math.pi");
+//        /* Remap variables as well */
+//        this.remapVar("PI", "math.pi");
     }
 
 
