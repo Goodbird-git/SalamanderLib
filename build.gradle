@@ -58,6 +58,7 @@ runClient {
 jar {
     manifest {
         attributes 'FMLCorePlugin': 'com.goodbird.salamanderlib.hooklib.geckohooks.GeckoHookLoader'
+        attributes 'FMLAT': 'salamanderlib_at.cfg'
         attributes 'FMLCorePluginContainsFMLMod': 'true'
     }
 }
