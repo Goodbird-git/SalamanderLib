@@ -7,7 +7,7 @@ public class GeckoHookLoader extends HookLoader {
 
     @Override
     public String[] getASMTransformerClass() {
-        return new String[]{PrimaryClassTransformer.class.getName()};
+        return new String[]{PrimaryClassTransformer.class.getName(), GeoBlockRendererFix.class.getName()};
     }
 
     @Override
