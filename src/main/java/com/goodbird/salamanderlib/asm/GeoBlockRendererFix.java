@@ -1,16 +1,18 @@
-package com.goodbird.salamanderlib.hooklib.geckohooks;
+package com.goodbird.salamanderlib.asm;
 
-import com.goodbird.salamanderlib.hooklib.minecraft.HookLibPlugin;
+import com.goodbird.salamanderlib.util.ObfuscationUtils;
 import net.minecraft.launchwrapper.IClassTransformer;
 import org.objectweb.asm.ClassReader;
 import org.objectweb.asm.ClassWriter;
-import org.objectweb.asm.tree.*;
+import org.objectweb.asm.tree.AbstractInsnNode;
+import org.objectweb.asm.tree.ClassNode;
+import org.objectweb.asm.tree.FieldInsnNode;
+import org.objectweb.asm.tree.MethodNode;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.util.ListIterator;
 
-import static org.objectweb.asm.Opcodes.*;
+import static org.objectweb.asm.Opcodes.GETSTATIC;
+import static org.objectweb.asm.Opcodes.SIPUSH;
 
 public class GeoBlockRendererFix  implements IClassTransformer {
 
@@ -44,7 +46,7 @@ public class GeoBlockRendererFix  implements IClassTransformer {
         while (iterator.hasNext()) {
             AbstractInsnNode insn = iterator.next();
             if(insn.getOpcode()==SIPUSH){
-                String lightmapTexUnit = HookLibPlugin.getObfuscated() ?  obfLightmapTexUnit : unobfLightmapTexUnit;
+                String lightmapTexUnit = ObfuscationUtils.getObfuscated() ?  obfLightmapTexUnit : unobfLightmapTexUnit;
                 iterator.set(new FieldInsnNode(GETSTATIC, "net/minecraft/client/renderer/OpenGlHelper", lightmapTexUnit, "I"));
             }
         }
