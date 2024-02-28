@@ -1,0 +1,66 @@
+{
+	"format_version": "1.8.0",
+	"animations": {
+		"idle": {
+			"loop": true,
+			"particle_effects": {
+				"0.0": {
+					"effect": "flame",
+					"locator": "locator"
+				}
+			}
+		},
+		"jump": {
+			"loop": true,
+			"animation_length": 4,
+			"bones": {
+				"model": {
+					"position": {
+						"0.0": {
+							"vector": [0, 0, 0]
+						},
+						"1.0": {
+							"vector": [0, 2, 0],
+							"easing": "easeOutQuart"
+						},
+						"2.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeInBounce"
+						},
+						"3.0": {
+							"vector": [0, 2, 0],
+							"easing": "easeOutQuart"
+						},
+						"4.0": {
+							"vector": [0, 0, 0],
+							"easing": "easeInBounce"
+						}
+					}
+				}
+			},
+			"particle_effects": {
+				"0.0": {
+					"effect": "flame",
+					"locator": "locator"
+				}
+			}
+		},
+		"test": {
+			"loop": true,
+			"bones": {
+				"model": {
+					"position": {
+						"vector": ["math.sin(query.anim_time*360)*3", 0, "math.cos(query.anim_time*360)*3"]
+					}
+				}
+			},
+			"particle_effects": {
+				"0.0": {
+					"effect": "flame",
+					"locator": "locator"
+				}
+			}
+		}
+	},
+	"geckolib_format_version": 2
+}
