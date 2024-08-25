@@ -13,7 +13,8 @@ public class GeckoHookLoader implements IFMLLoadingPlugin {
         return new String[]{
                 GeoBlockRendererFix.class.getName(),
                 AnimationControllerHook.class.getName(),
-                GeoRendererHooks.class.getName()
+                GeoRendererHooks.class.getName(),
+                GeckolibCacheHook.class.getName()
         };
     }
 

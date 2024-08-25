@@ -30,7 +30,7 @@ public class GeoBlockRendererFix  implements IClassTransformer {
 
         for(MethodNode node: classNode.methods){
             if(node.name.equals("render")){
-                changeFindModDirMods(node);
+                changeRenderer(node);
             }
         }
 
@@ -41,7 +41,7 @@ public class GeoBlockRendererFix  implements IClassTransformer {
         return bytes;
     }
 
-    public void changeFindModDirMods(MethodNode method){
+    public void changeRenderer(MethodNode method){
         ListIterator<AbstractInsnNode> iterator = method.instructions.iterator();
         while (iterator.hasNext()) {
             AbstractInsnNode insn = iterator.next();
