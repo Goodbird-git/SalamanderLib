@@ -8,10 +8,10 @@ import com.goodbird.salamanderlib.particles.emitter.BedrockEmitter;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import software.bernie.geckolib3.core.molang.MolangException;
-import software.bernie.geckolib3.core.molang.MolangParser;
-import software.bernie.geckolib3.core.molang.expressions.MolangAssignment;
-import software.bernie.geckolib3.core.molang.expressions.MolangExpression;
-import software.bernie.geckolib3.core.molang.expressions.MolangMultiStatement;
+import com.goodbird.salamanderlib.molang.MolangParser;
+import com.goodbird.salamanderlib.molang.expressions.MolangAssignment;
+import com.goodbird.salamanderlib.molang.expressions.MolangExpression;
+import com.goodbird.salamanderlib.molang.expressions.MolangMultiStatement;
 import software.bernie.shadowed.eliotlash.mclib.math.IValue;
 
 

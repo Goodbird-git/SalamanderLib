@@ -8,8 +8,8 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.client.renderer.BufferBuilder;
 import software.bernie.geckolib3.core.molang.MolangException;
-import software.bernie.geckolib3.core.molang.MolangParser;
-import software.bernie.geckolib3.core.molang.expressions.MolangExpression;
+import com.goodbird.salamanderlib.molang.MolangParser;
+import com.goodbird.salamanderlib.molang.expressions.MolangExpression;
 
 import java.util.Map;
 import java.util.Set;

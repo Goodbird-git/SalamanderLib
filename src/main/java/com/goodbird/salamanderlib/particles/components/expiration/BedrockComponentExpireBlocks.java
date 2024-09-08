@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.registries.ForgeRegistries;
 import software.bernie.geckolib3.core.molang.MolangException;
-import software.bernie.geckolib3.core.molang.MolangParser;
+import com.goodbird.salamanderlib.molang.MolangParser;
 
 import javax.vecmath.Vector3d;
 import java.util.ArrayList;

@@ -1,7 +1,5 @@
 package com.goodbird.salamanderlib.molang;
 
-import software.bernie.geckolib3.core.molang.MolangParser;
-
 public class MolangRegistrar {
     private static MolangParser instance;
     public static MolangParser getParser(){

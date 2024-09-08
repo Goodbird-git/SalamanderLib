@@ -5,6 +5,9 @@
 
 package com.goodbird.salamanderlib.molang;
 
+import com.goodbird.salamanderlib.molang.expressions.MolangAssignment;
+import com.goodbird.salamanderlib.molang.expressions.MolangExpression;
+import com.goodbird.salamanderlib.molang.expressions.MolangValue;
 import com.goodbird.salamanderlib.molang.functions.AcosDegrees;
 import com.goodbird.salamanderlib.molang.functions.AsinDegrees;
 import com.goodbird.salamanderlib.molang.functions.Atan2Degrees;
@@ -12,11 +15,7 @@ import com.goodbird.salamanderlib.molang.functions.AtanDegrees;
 import com.google.gson.JsonElement;
 import software.bernie.geckolib3.core.molang.LazyVariable;
 import software.bernie.geckolib3.core.molang.MolangException;
-import software.bernie.geckolib3.core.molang.MolangParser;
-import software.bernie.geckolib3.core.molang.expressions.MolangAssignment;
-import software.bernie.geckolib3.core.molang.expressions.MolangExpression;
-import software.bernie.geckolib3.core.molang.expressions.MolangMultiStatement;
-import software.bernie.geckolib3.core.molang.expressions.MolangValue;
+import com.goodbird.salamanderlib.molang.expressions.MolangMultiStatement;
 import software.bernie.geckolib3.core.molang.functions.CosDegrees;
 import software.bernie.geckolib3.core.molang.functions.SinDegrees;
 import software.bernie.shadowed.eliotlash.mclib.math.Constant;
@@ -74,9 +73,9 @@ public class AdvMolangParser extends MolangParser {
      * Interactively return a new variable
      */
     @Override
-    protected LazyVariable getVariable(String name)
+    public Variable getVariable(String name)
     {
-        LazyVariable variable = this.currentStatement == null ? null : this.currentStatement.locals.get(name);
+        Variable variable = this.currentStatement == null ? null : this.currentStatement.locals.get(name);
 
         if (variable == null)
         {
@@ -176,11 +175,11 @@ public class AdvMolangParser extends MolangParser {
                 String name = (String) symbols.get(0);
                 symbols = symbols.subList(2, symbols.size());
 
-                LazyVariable variable = null;
+                Variable variable = null;
 
                 if (!this.registerAsGlobals && !this.variables.containsKey(name) && !this.currentStatement.locals.containsKey(name))
                 {
-                    variable = new LazyVariable(name, 0);
+                    variable = new Variable(name, 0);
                     this.currentStatement.locals.put(name, variable);
                 }
                 else

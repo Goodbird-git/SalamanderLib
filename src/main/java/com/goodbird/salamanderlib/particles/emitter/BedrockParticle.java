@@ -9,7 +9,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
 import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
-import software.bernie.geckolib3.core.molang.expressions.MolangExpression;
+import com.goodbird.salamanderlib.molang.expressions.MolangExpression;
 
 import javax.vecmath.*;
 import java.util.HashMap;

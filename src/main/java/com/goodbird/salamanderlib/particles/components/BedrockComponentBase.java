@@ -3,7 +3,7 @@ package com.goodbird.salamanderlib.particles.components;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import software.bernie.geckolib3.core.molang.MolangException;
-import software.bernie.geckolib3.core.molang.MolangParser;
+import com.goodbird.salamanderlib.molang.MolangParser;
 
 public abstract class BedrockComponentBase
 {

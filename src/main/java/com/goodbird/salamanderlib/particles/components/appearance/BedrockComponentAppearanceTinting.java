@@ -9,7 +9,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.client.renderer.BufferBuilder;
 import software.bernie.geckolib3.core.molang.MolangException;
-import software.bernie.geckolib3.core.molang.MolangParser;
+import com.goodbird.salamanderlib.molang.MolangParser;
 
 public class BedrockComponentAppearanceTinting extends BedrockComponentBase implements IComponentParticleRender
 {

@@ -75,7 +75,6 @@ public class ParticleExampleEntity extends CreatureEntity implements IAnimatable
                 emitter.stop();
                 emitter = new BedrockEmitter();
                 emitter.setScheme(BedrockLibrary.instance.presets.get(particleName));
-                emitter.setTarget(this);
                 emitter.start();
                 restart = false;
             }

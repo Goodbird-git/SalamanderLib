@@ -40,15 +40,15 @@ public class ParticleExampleEntityRenderer extends GeoEntityRenderer<ParticleExa
         emitter.lastGlobal.y=animatable.getY();
         emitter.lastGlobal.z=animatable.getZ();
         //RenderHelper.disableStandardItemLighting();
+        MATRIX_STACK.pushPose();
+        GlStateManager._pushMatrix();
+        boolean shouldSit = (animatable.getControllingPassenger() != null && animatable.getControllingPassenger().shouldRiderSit());
+        Pair<Float,Float> rotations = calculateRotations(animatable,ticks,shouldSit);
+        deapplyRotations(MATRIX_STACK, animatable,this.handleRotationFloat(animatable, ticks),rotations.getKey(),ticks);
 
-//        boolean shouldSit = (animatable.getControllingPassenger() != null && animatable.getControllingPassenger().shouldRiderSit());
-//        Pair<Float,Float> rotations = calculateRotations(animatable,ticks,shouldSit);
-//        deapplyRotations(MATRIX_STACK, animatable,this.handleRotationFloat(animatable, ticks),rotations.getKey(),ticks);
-
-        GL11.glTranslated(-animatable.getX(),-animatable.getY(),-animatable.getZ());
+        GlStateManager._translated(-animatable.getX(),-animatable.getY(),-animatable.getZ());
         emitter.rotation.setIdentity();
 
-        MATRIX_STACK.pushPose();
         //MATRIX_STACK.rotateY((float) (Math.PI/2));
 //		MATRIX_STACK.translate(1,1,0);
 //		MATRIX_STACK.rotateY((float) (Math.PI/2));
@@ -62,6 +62,7 @@ public class ParticleExampleEntityRenderer extends GeoEntityRenderer<ParticleExa
 
         MATRIX_STACK.popPose();
         emitter.render(ticks);
+        GlStateManager._popMatrix();
         //RenderHelper.enableStandardItemLighting();
     }
 

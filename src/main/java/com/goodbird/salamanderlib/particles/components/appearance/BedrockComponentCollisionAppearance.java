@@ -12,8 +12,8 @@ import com.google.gson.JsonObject;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.util.ResourceLocation;
 import software.bernie.geckolib3.core.molang.MolangException;
-import software.bernie.geckolib3.core.molang.MolangParser;
-import software.bernie.geckolib3.core.molang.expressions.MolangExpression;
+import com.goodbird.salamanderlib.molang.MolangParser;
+import com.goodbird.salamanderlib.molang.expressions.MolangExpression;
 import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
 
 import java.util.Map;

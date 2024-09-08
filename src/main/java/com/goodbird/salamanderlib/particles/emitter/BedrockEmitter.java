@@ -190,25 +190,25 @@ public class BedrockEmitter
 
     public void setupVariables()
     {
-        this.varAge = this.scheme.parser.VARIABLES.get("variable.particle_age");
-        this.varLifetime = this.scheme.parser.VARIABLES.get("variable.particle_lifetime");
-        this.varRandom1 = this.scheme.parser.VARIABLES.get("variable.particle_random_1");
-        this.varRandom2 = this.scheme.parser.VARIABLES.get("variable.particle_random_2");
-        this.varRandom3 = this.scheme.parser.VARIABLES.get("variable.particle_random_3");
-        this.varRandom4 = this.scheme.parser.VARIABLES.get("variable.particle_random_4");
+        this.varAge = this.scheme.parser.variables.get("variable.particle_age");
+        this.varLifetime = this.scheme.parser.variables.get("variable.particle_lifetime");
+        this.varRandom1 = this.scheme.parser.variables.get("variable.particle_random_1");
+        this.varRandom2 = this.scheme.parser.variables.get("variable.particle_random_2");
+        this.varRandom3 = this.scheme.parser.variables.get("variable.particle_random_3");
+        this.varRandom4 = this.scheme.parser.variables.get("variable.particle_random_4");
 
-        this.varSpeedABS = this.scheme.parser.VARIABLES.get("variable.particle_speed.length");
-        this.varSpeedX = this.scheme.parser.VARIABLES.get("variable.particle_speed.x");
-        this.varSpeedY = this.scheme.parser.VARIABLES.get("variable.particle_speed.y");
-        this.varSpeedZ = this.scheme.parser.VARIABLES.get("variable.particle_speed.z");
-        this.varBounces = this.scheme.parser.VARIABLES.get("variable.particle_bounces");
+        this.varSpeedABS = this.scheme.parser.variables.get("variable.particle_speed.length");
+        this.varSpeedX = this.scheme.parser.variables.get("variable.particle_speed.x");
+        this.varSpeedY = this.scheme.parser.variables.get("variable.particle_speed.y");
+        this.varSpeedZ = this.scheme.parser.variables.get("variable.particle_speed.z");
+        this.varBounces = this.scheme.parser.variables.get("variable.particle_bounces");
 
-        this.varEmitterAge = this.scheme.parser.VARIABLES.get("variable.emitter_age");
-        this.varEmitterLifetime = this.scheme.parser.VARIABLES.get("variable.emitter_lifetime");
-        this.varEmitterRandom1 = this.scheme.parser.VARIABLES.get("variable.emitter_random_1");
-        this.varEmitterRandom2 = this.scheme.parser.VARIABLES.get("variable.emitter_random_2");
-        this.varEmitterRandom3 = this.scheme.parser.VARIABLES.get("variable.emitter_random_3");
-        this.varEmitterRandom4 = this.scheme.parser.VARIABLES.get("variable.emitter_random_4");
+        this.varEmitterAge = this.scheme.parser.variables.get("variable.emitter_age");
+        this.varEmitterLifetime = this.scheme.parser.variables.get("variable.emitter_lifetime");
+        this.varEmitterRandom1 = this.scheme.parser.variables.get("variable.emitter_random_1");
+        this.varEmitterRandom2 = this.scheme.parser.variables.get("variable.emitter_random_2");
+        this.varEmitterRandom3 = this.scheme.parser.variables.get("variable.emitter_random_3");
+        this.varEmitterRandom4 = this.scheme.parser.variables.get("variable.emitter_random_4");
     }
 
     public void setParticleVariables(BedrockParticle particle, float partialTicks)
