@@ -6,12 +6,12 @@ import com.goodbird.salamanderlib.particles.emitter.BedrockParticle;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import net.minecraft.block.Block;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import software.bernie.shadowed.eliotlash.molang.MolangException;
-import software.bernie.shadowed.eliotlash.molang.MolangParser;
+import net.minecraftforge.registries.ForgeRegistries;
+import software.bernie.geckolib3.core.molang.MolangException;
+import software.bernie.geckolib3.core.molang.MolangParser;
 
 import javax.vecmath.Vector3d;
 import java.util.ArrayList;
@@ -21,7 +21,7 @@ public abstract class BedrockComponentExpireBlocks extends BedrockComponentBase
 {
     public List<Block> blocks = new ArrayList<Block>();
 
-    private BlockPos.MutableBlockPos pos = new BlockPos.MutableBlockPos();
+    private BlockPos.Mutable pos = new BlockPos.Mutable();
 
     @Override
     public BedrockComponentBase fromJson(JsonElement element, MolangParser parser) throws MolangException
@@ -70,7 +70,7 @@ public abstract class BedrockComponentExpireBlocks extends BedrockComponentBase
 
         Vector3d position = particle.getGlobalPosition(emitter);
 
-        this.pos.setPos(position.getX(), position.getY(), position.getZ());
+        this.pos.set(position.getX(), position.getY(), position.getZ());
 
         return emitter.world.getBlockState(this.pos).getBlock();
     }

@@ -1,0 +1,12 @@
+{
+  "minVersion": "0.7.11",
+  "compatibilityLevel": "JAVA_8",
+  "package": "com.goodbird.salamanderlib.mixin.impl",
+  "refmap": "mixins.salamanderlib.refmap.json",
+  "mixins": [
+    "IMatrix4f"
+  ],
+  "client": [
+  ],
+  "server": []
+}

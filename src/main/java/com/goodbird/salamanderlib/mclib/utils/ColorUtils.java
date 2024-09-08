@@ -1,6 +1,7 @@
 package com.goodbird.salamanderlib.mclib.utils;
 
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
+import com.mojang.blaze3d.systems.RenderSystem;
 import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
 
 public class ColorUtils
@@ -51,7 +52,7 @@ public class ColorUtils
     {
         COLOR.set(color, true);
 
-        GlStateManager.color(COLOR.r, COLOR.g, COLOR.b, COLOR.a);
+        RenderSystem.color4f(COLOR.r, COLOR.g, COLOR.b, COLOR.a);
     }
 
     public static int rgbaToInt(float r, float g, float b, float a)

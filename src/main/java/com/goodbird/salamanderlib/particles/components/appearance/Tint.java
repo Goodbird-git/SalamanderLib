@@ -7,13 +7,13 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonPrimitive;
 import org.apache.commons.lang3.StringUtils;
+import software.bernie.geckolib3.core.molang.MolangException;
+import software.bernie.geckolib3.core.molang.MolangParser;
+import software.bernie.geckolib3.core.molang.expressions.MolangExpression;
+import software.bernie.geckolib3.core.molang.expressions.MolangValue;
 import software.bernie.shadowed.eliotlash.mclib.math.Constant;
 import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
 import software.bernie.shadowed.eliotlash.mclib.utils.MathUtils;
-import software.bernie.shadowed.eliotlash.molang.MolangException;
-import software.bernie.shadowed.eliotlash.molang.MolangParser;
-import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
-import software.bernie.shadowed.eliotlash.molang.expressions.MolangValue;
 
 import java.util.ArrayList;
 import java.util.List;

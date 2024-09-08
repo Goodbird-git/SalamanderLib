@@ -3,10 +3,12 @@ package com.goodbird.salamanderlib.util;
 
 import com.goodbird.salamanderlib.mclib.utils.MatrixUtils;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.RenderManager;
+import net.minecraft.client.renderer.entity.EntityRendererManager;
+import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
+import net.minecraft.client.settings.PointOfView;
 import net.minecraft.entity.Entity;
-import net.minecraft.util.math.Vec3d;
 import org.lwjgl.opengl.GL11;
+import software.bernie.shadowed.eliotlash.mclib.math.functions.limit.Min;
 
 import javax.vecmath.Matrix3f;
 import javax.vecmath.Matrix4d;
@@ -15,34 +17,36 @@ import javax.vecmath.Vector3d;
 
 public class PositionUtils {
     public static void setInitialWorldPos() {
-        RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
-        Entity camera = Minecraft.getMinecraft().getRenderViewEntity();
+        Entity camera = Minecraft.getInstance().cameraEntity;
         GL11.glLoadIdentity();
-        if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
+        if (Minecraft.getInstance().options.getCameraType() == PointOfView.FIRST_PERSON) {
             GL11.glScaled(-1, 1, -1);
-        } else if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 1){
+        } else if (Minecraft.getInstance().options.getCameraType() == PointOfView.THIRD_PERSON_BACK){ //1
             GL11.glScaled(-1, 1, -1);
         } else {
             GL11.glScaled(1, 1, 1);
         }
-        GL11.glRotatef(-camera.rotationPitch, 1, 0, 0);
-        GL11.glRotatef(camera.rotationYaw, 0, 1, 0);
-        GL11.glTranslated(-renderManager.renderPosX, -renderManager.renderPosY, -renderManager.renderPosZ);
+        GL11.glRotatef(-camera.xRot, 1, 0, 0);
+        GL11.glRotatef(camera.yRot, 0, 1, 0);
+        double renderPosX = camera.xOld + (camera.getX() - camera.xOld) * (double) Minecraft.getInstance().getFrameTime();
+        double renderPosY = camera.yOld + (camera.getY() - camera.yOld) * (double) Minecraft.getInstance().getFrameTime();
+        double renderPosZ = camera.zOld + (camera.getZ() - camera.zOld) * (double) Minecraft.getInstance().getFrameTime();
+        GL11.glTranslated(-renderPosX, -renderPosY, -renderPosZ);
         Vector3d additional = getCameraShift();
         GL11.glTranslated(additional.x,additional.y,additional.z);
     }
 
     public static Vector3d getCameraShift(){
         Vector3d res = new Vector3d(0,0,0);
-        if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 0) {
+        if (Minecraft.getInstance().options.getCameraType() == PointOfView.FIRST_PERSON) {
             return res;
-        } else if (Minecraft.getMinecraft().gameSettings.thirdPersonView == 1){
-            Vec3d look = Minecraft.getMinecraft().player.getLookVec();
+        } else if (Minecraft.getInstance().options.getCameraType() == PointOfView.THIRD_PERSON_BACK){ //1
+            net.minecraft.util.math.vector.Vector3d look = Minecraft.getInstance().player.getLookAngle();
             res = new Vector3d(look.x,look.y,look.z);
             res.scale(4);
             return res;
         } else {
-            Vec3d look = Minecraft.getMinecraft().player.getLookVec();
+            net.minecraft.util.math.vector.Vector3d look = Minecraft.getInstance().player.getLookAngle();
             res = new Vector3d(look.x,look.y,look.z);
             res.scale(-4);
             return res;
@@ -50,25 +54,24 @@ public class PositionUtils {
     }
 
     public static Vector3d getCurrentRenderPos() {
-        RenderManager renderManager = Minecraft.getMinecraft().getRenderManager();
-        Entity camera = Minecraft.getMinecraft().getRenderViewEntity();
+        Entity camera = Minecraft.getInstance().cameraEntity;
         Matrix4f matrix4f = getCurrentMatrix();
         MatrixUtils.Transformation transformation = MatrixUtils.extractTransformations(null, matrix4f);
         double dl = matrix4f.m03;
         double du = matrix4f.m13;
         double dz = matrix4f.m23;
-        if(Minecraft.getMinecraft().gameSettings.thirdPersonView==1){
+        if(Minecraft.getInstance().options.getCameraType()==PointOfView.THIRD_PERSON_BACK){ //1
             dz+=4;
         }
-        if(Minecraft.getMinecraft().gameSettings.thirdPersonView==2){
+        if(Minecraft.getInstance().options.getCameraType()==PointOfView.THIRD_PERSON_FRONT){ //2
             dz*=-1;
             dl*=-1;
             dz-=4;
         }
         Matrix4d rotMatrixX = new Matrix4d();
-        rotMatrixX.rotX((camera.rotationPitch) / 360 * Math.PI * 2);
+        rotMatrixX.rotX((camera.xRot) / 360 * Math.PI * 2);
         Matrix4d rotMatrixY = new Matrix4d();
-        rotMatrixY.rotY((-camera.rotationYaw) / 360 * Math.PI * 2);
+        rotMatrixY.rotY((-camera.yRot) / 360 * Math.PI * 2);
         Vector3d vecZ = new Vector3d(0, 0, 1);
         rotMatrixX.transform(vecZ);
         rotMatrixY.transform(vecZ);
@@ -87,7 +90,10 @@ public class PositionUtils {
         vecU.scale(du);
         vecL.scale(dl);
         Vector3d pos = new Vector3d(vecZ.x + vecU.x + vecL.x, vecZ.y + vecU.y + vecL.y, vecZ.z + vecU.z + vecL.z);
-        Vector3d res = new Vector3d(pos.x + renderManager.renderPosX, pos.y + renderManager.renderPosY, pos.z + renderManager.renderPosZ);
+        double renderPosX = camera.xOld + (camera.getX() - camera.xOld) * (double) Minecraft.getInstance().getFrameTime();
+        double renderPosY = camera.yOld + (camera.getY() - camera.yOld) * (double) Minecraft.getInstance().getFrameTime();
+        double renderPosZ = camera.zOld + (camera.getZ() - camera.zOld) * (double) Minecraft.getInstance().getFrameTime();
+        Vector3d res = new Vector3d(pos.x + renderPosX, pos.y + renderPosY, pos.z + renderPosZ);
         return res;
     }
 
@@ -98,11 +104,11 @@ public class PositionUtils {
     }
 
     public static Matrix4f getBasicRotation() {
-        Entity camera = Minecraft.getMinecraft().getRenderViewEntity();
+        Entity camera = Minecraft.getInstance().cameraEntity;
         Matrix4f basicRot = new Matrix4f();
-        basicRot.rotX((float) (camera.rotationPitch / 360 * Math.PI / 2));
+        basicRot.rotX((float) (camera.xRot / 360 * Math.PI / 2));
         Matrix4f yRot = new Matrix4f();
-        yRot.rotY((float) (camera.rotationYaw / 360 * Math.PI / 2));
+        yRot.rotY((float) (camera.yRot / 360 * Math.PI / 2));
         basicRot.mul(yRot);
         return basicRot;
     }

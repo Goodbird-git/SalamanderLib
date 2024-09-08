@@ -4,9 +4,10 @@ import com.goodbird.salamanderlib.particles.components.BedrockComponentBase;
 import com.goodbird.salamanderlib.particles.emitter.BedrockEmitter;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import software.bernie.shadowed.eliotlash.molang.MolangException;
-import software.bernie.shadowed.eliotlash.molang.MolangParser;
-import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
+import software.bernie.geckolib3.core.molang.MolangException;
+import software.bernie.geckolib3.core.molang.MolangParser;
+import software.bernie.geckolib3.core.molang.expressions.MolangExpression;
+
 
 public class BedrockComponentLifetimeLooping extends BedrockComponentLifetime
 {

@@ -8,19 +8,17 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.goodbird.salamanderlib.particles.components.GuiModelRenderer;
 import com.goodbird.salamanderlib.particles.components.IComponentParticleInitialize;
+import com.mojang.blaze3d.platform.GlStateManager;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.OpenGlHelper;
 import net.minecraft.client.renderer.RenderHelper;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraft.entity.LivingEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import software.bernie.geckolib3.core.molang.MolangException;
+import software.bernie.geckolib3.core.molang.MolangParser;
 import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
-import software.bernie.shadowed.eliotlash.molang.MolangException;
-import software.bernie.shadowed.eliotlash.molang.MolangParser;
-
 import javax.vecmath.Matrix3d;
 import javax.vecmath.Vector3d;
 import javax.vecmath.Vector3f;
@@ -74,18 +72,18 @@ public class BedrockComponentParticleMorph extends BedrockComponentBase implemen
 //        }
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void render(BedrockEmitter emitter, BedrockParticle particle, BufferBuilder builder, float partialTicks)
     {
-        Entity camera = Minecraft.getMinecraft().getRenderViewEntity();
+        Entity camera = Minecraft.getInstance().cameraEntity;
 
 //        if (camera == null || this.morph.isEmpty() || !this.enabled)
 //        {
 //            return;
 //        }
 
-        EntityLivingBase dummy = particle.getDummy(emitter);
+        LivingEntity dummy = particle.getDummy(emitter);
 
         double x = Interpolations.lerp(particle.prevPosition.x, particle.position.x, partialTicks);
         double y = Interpolations.lerp(particle.prevPosition.y, particle.position.y, partialTicks);
@@ -98,31 +96,32 @@ public class BedrockComponentParticleMorph extends BedrockComponentBase implemen
 
         if (!GuiModelRenderer.isRendering())
         {
-            x -= Interpolations.lerp(camera.prevPosX, camera.posX, partialTicks);
-            y -= Interpolations.lerp(camera.prevPosY, camera.posY, partialTicks);
-            z -= Interpolations.lerp(camera.prevPosZ, camera.posZ, partialTicks);
+            x -= Interpolations.lerp(camera.xo, camera.getX(), partialTicks);
+            y -= Interpolations.lerp(camera.yo, camera.getY(), partialTicks);
+            z -= Interpolations.lerp(camera.zo, camera.getZ(), partialTicks);
         }
 
-        int combinedBrightness  = dummy.getBrightnessForRender();
-        int brightnessX = combinedBrightness % 65536;
-        int brightnessY = combinedBrightness / 65536;
-
-        GlStateManager.color(1, 1, 1, 1);
-        RenderHelper.enableStandardItemLighting();
-        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, brightnessX, brightnessY);
-
-        GlStateManager.pushMatrix();
-        GlStateManager.translate(x, y, z);
-
-        if (particle.relativeScaleBillboard)
-        {
-            GlStateManager.scale(emitter.scale[0], emitter.scale[1], emitter.scale[2]);
-        }
-
-        //MorphUtils.render(this.morph.get(), dummy, 0, 0, 0, 0, partialTicks);
-
-        RenderHelper.disableStandardItemLighting();
-        GlStateManager.popMatrix();
+//
+//        int combinedBrightness  = dummy.getLightColor();
+//        int brightnessX = combinedBrightness % 65536;
+//        int brightnessY = combinedBrightness / 65536;
+//
+//        GlStateManager._color4f(1, 1, 1, 1);
+//        RenderHelper.enableStandardItemLighting();
+//        OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, brightnessX, brightnessY);
+//
+//        GlStateManager._pushMatrix();
+//        GlStateManager._translated(x, y, z);
+//
+//        if (particle.relativeScaleBillboard)
+//        {
+//            GlStateManager._scaled(emitter.scale[0], emitter.scale[1], emitter.scale[2]);
+//        }
+//
+//        //MorphUtils.render(this.morph.get(), dummy, 0, 0, 0, 0, partialTicks);
+//
+//        RenderHelper.disableStandardItemLighting();
+//        GlStateManager._popMatrix();
     }
 
     protected Vector3d calculatePosition(BedrockEmitter emitter, BedrockParticle particle, double px, double py, double pz)
@@ -175,7 +174,7 @@ public class BedrockComponentParticleMorph extends BedrockComponentBase implemen
         return new Vector3d(px, py, pz);
     }
 
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     @Override
     public void renderOnScreen(BedrockParticle particle, int x, int y, float scale, float partialTicks)
     {

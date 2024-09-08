@@ -4,11 +4,11 @@ import com.goodbird.salamanderlib.particles.components.BedrockComponentBase;
 import com.goodbird.salamanderlib.particles.components.IComponentEmitterUpdate;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import software.bernie.geckolib3.core.molang.MolangException;
+import software.bernie.geckolib3.core.molang.MolangParser;
+import software.bernie.geckolib3.core.molang.expressions.MolangExpression;
+import software.bernie.geckolib3.core.molang.expressions.MolangValue;
 import software.bernie.shadowed.eliotlash.mclib.math.Constant;
-import software.bernie.shadowed.eliotlash.molang.MolangException;
-import software.bernie.shadowed.eliotlash.molang.MolangParser;
-import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
-import software.bernie.shadowed.eliotlash.molang.expressions.MolangValue;
 
 public abstract class BedrockComponentLifetime extends BedrockComponentBase implements IComponentEmitterUpdate
 {

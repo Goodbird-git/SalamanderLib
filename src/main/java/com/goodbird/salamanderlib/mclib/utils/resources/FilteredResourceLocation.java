@@ -2,9 +2,9 @@ package com.goodbird.salamanderlib.mclib.utils.resources;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.nbt.NBTTagString;
+import net.minecraft.nbt.CompoundNBT;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.StringNBT;
 import net.minecraft.util.ResourceLocation;
 
 import java.util.Objects;
@@ -29,7 +29,7 @@ public class FilteredResourceLocation implements IWritableLocation<FilteredResou
     public int pixelate = 1;
     public boolean erase;
 
-    public static FilteredResourceLocation from(NBTBase base)
+    public static FilteredResourceLocation from(INBT base)
     {
         try
         {
@@ -148,67 +148,67 @@ public class FilteredResourceLocation implements IWritableLocation<FilteredResou
     }
 
     @Override
-    public void fromNbt(NBTBase nbt) throws Exception
+    public void fromNbt(INBT nbt) throws Exception
     {
-        if (nbt instanceof NBTTagString)
+        if (nbt instanceof StringNBT)
         {
             this.path = RLUtils.create(nbt);
 
             return;
         }
 
-        NBTTagCompound tag = (NBTTagCompound) nbt;
+        CompoundNBT tag = (CompoundNBT) nbt;
 
         this.path = RLUtils.create(tag.getString("Path"));
 
-        if (tag.hasKey("Color"))
+        if (tag.contains("Color"))
         {
-            this.color = tag.getInteger("Color");
+            this.color = tag.getInt("Color");
         }
 
-        if (tag.hasKey("Scale"))
+        if (tag.contains("Scale"))
         {
             this.scale = tag.getFloat("Scale");
         }
 
-        if (tag.hasKey("ScaleToLargest"))
+        if (tag.contains("ScaleToLargest"))
         {
             this.scaleToLargest = tag.getBoolean("ScaleToLargest");
         }
 
-        if (tag.hasKey("ShiftX"))
+        if (tag.contains("ShiftX"))
         {
-            this.shiftX = tag.getInteger("ShiftX");
+            this.shiftX = tag.getInt("ShiftX");
         }
 
-        if (tag.hasKey("ShiftY"))
+        if (tag.contains("ShiftY"))
         {
-            this.shiftY = tag.getInteger("ShiftY");
+            this.shiftY = tag.getInt("ShiftY");
         }
 
-        if (tag.hasKey("Pixelate"))
+        if (tag.contains("Pixelate"))
         {
-            this.pixelate = tag.getInteger("Pixelate");
+            this.pixelate = tag.getInt("Pixelate");
         }
 
-        if (tag.hasKey("Erase"))
+        if (tag.contains("Erase"))
         {
             this.erase = tag.getBoolean("Erase");
         }
 
-        if (tag.hasKey("AutoSize"))
+        if (tag.contains("AutoSize"))
         {
             this.autoSize = tag.getBoolean("AutoSize");
         }
 
-        if (tag.hasKey("SizeW"))
+        if (tag.contains("SizeW"))
         {
-            this.sizeW = tag.getInteger("SizeW");
+            this.sizeW = tag.getInt("SizeW");
         }
 
-        if (tag.hasKey("SizeH"))
+        if (tag.contains("SizeH"))
         {
-            this.sizeH = tag.getInteger("SizeH");
+            this.sizeH = tag.getInt("SizeH");
         }
     }
 
@@ -278,22 +278,22 @@ public class FilteredResourceLocation implements IWritableLocation<FilteredResou
     }
 
     @Override
-    public NBTBase writeNbt()
+    public INBT writeNbt()
     {
-        NBTTagCompound tag = new NBTTagCompound();
+        CompoundNBT tag = new CompoundNBT();
 
-        tag.setString("Path", this.toString());
+        tag.putString("Path", this.toString());
 
-        if (this.color != DEFAULT_COLOR) tag.setInteger("Color", this.color);
-        if (this.scale != 1) tag.setFloat("Scale", this.scale);
-        if (this.scaleToLargest) tag.setBoolean("ScaleToLargest", this.scaleToLargest);
-        if (this.shiftX != 0) tag.setInteger("ShiftX", this.shiftX);
-        if (this.shiftY != 0) tag.setInteger("ShiftY", this.shiftY);
-        if (this.pixelate > 1) tag.setInteger("Pixelate", this.pixelate);
-        if (this.erase) tag.setBoolean("Erase", this.erase);
-        if (!this.autoSize) tag.setBoolean("AutoSize", this.autoSize);
-        if (this.sizeW > 0) tag.setInteger("SizeW", this.sizeW);
-        if (this.sizeH > 0) tag.setInteger("SizeH", this.sizeH);
+        if (this.color != DEFAULT_COLOR) tag.putInt("Color", this.color);
+        if (this.scale != 1) tag.putFloat("Scale", this.scale);
+        if (this.scaleToLargest) tag.putBoolean("ScaleToLargest", this.scaleToLargest);
+        if (this.shiftX != 0) tag.putInt("ShiftX", this.shiftX);
+        if (this.shiftY != 0) tag.putInt("ShiftY", this.shiftY);
+        if (this.pixelate > 1) tag.putInt("Pixelate", this.pixelate);
+        if (this.erase) tag.putBoolean("Erase", this.erase);
+        if (!this.autoSize) tag.putBoolean("AutoSize", this.autoSize);
+        if (this.sizeW > 0) tag.putInt("SizeW", this.sizeW);
+        if (this.sizeH > 0) tag.putInt("SizeH", this.sizeH);
 
         return tag;
     }

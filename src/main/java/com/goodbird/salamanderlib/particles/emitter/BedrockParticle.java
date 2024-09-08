@@ -6,10 +6,10 @@ import com.goodbird.salamanderlib.particles.components.appearance.BedrockCompone
 import com.goodbird.salamanderlib.particles.components.appearance.BedrockComponentCollisionTinting;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
+import net.minecraft.entity.LivingEntity;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
+import software.bernie.geckolib3.core.molang.expressions.MolangExpression;
 
 import javax.vecmath.*;
 import java.util.HashMap;
@@ -135,27 +135,27 @@ public class BedrockParticle
         to.expireAge = this.expireAge;
         to.expirationDelay = this.expirationDelay;
         to.realisticCollisionDrag = this.realisticCollisionDrag;
-        to.collisionTime = (Vector3f) this.collisionTime.clone();
+        to.collisionTime = new Vector3f(this.collisionTime);
         to.entityCollisionTime = new HashMap<>();
 
         for(Map.Entry<Entity, Vector3f> entry : this.entityCollisionTime.entrySet())
         {
-            to.entityCollisionTime.put(entry.getKey(), (Vector3f) entry.getValue().clone());
+            to.entityCollisionTime.put(entry.getKey(), new Vector3f(entry.getValue()));
         }
 
         to.bounces = this.bounces;
         to.firstIntersection = this.firstIntersection;
-        to.offset = (Vector3d) this.offset.clone();
-        to.position = (Vector3d) this.position.clone();
-        to.initialPosition = (Vector3d) this.initialPosition.clone();
-        to.prevPosition = (Vector3d) this.prevPosition.clone();
-        to.matrix = (Matrix3f) this.matrix.clone();
+        to.offset = new Vector3d(this.offset);
+        to.position = new Vector3d(this.position);
+        to.initialPosition = new Vector3d(this.initialPosition);
+        to.prevPosition = new Vector3d(this.prevPosition);
+        to.matrix = new Matrix3f(this.matrix);
         to.matrixSet = this.matrixSet;
-        to.speed = (Vector3f) this.speed.clone();
-        to.acceleration = (Vector3f) this.acceleration.clone();
-        to.accelerationFactor = (Vector3f) this.accelerationFactor.clone();
+        to.speed = new Vector3f(this.speed);
+        to.acceleration = new Vector3f(this.acceleration);
+        to.accelerationFactor = new Vector3f(this.accelerationFactor);
         to.dragFactor = this.dragFactor;
-        to.global = (Vector3d) this.global.clone();
+        to.global = new Vector3d(this.global);
 
         return to;
     }
@@ -396,27 +396,27 @@ public class BedrockParticle
         this.offset.scale(0);
     }
 
-    @SideOnly(Side.CLIENT)
-    public EntityLivingBase getDummy(BedrockEmitter emitter)
+    @OnlyIn(Dist.CLIENT)
+    public LivingEntity getDummy(BedrockEmitter emitter)
     {
         if (this.dummy == null)
         {
-            this.dummy = new DummyEntity(Minecraft.getMinecraft().world);
+            this.dummy = new DummyEntity(Minecraft.getInstance().level);
         }
 
         Vector3d pos = this.getGlobalPosition(emitter);
 
-        this.dummy.setPosition(pos.x, pos.y, pos.z);
-        this.dummy.prevPosX = this.dummy.posX;
-        this.dummy.prevPosY = this.dummy.posY;
-        this.dummy.prevPosZ = this.dummy.posZ;
-        this.dummy.lastTickPosX = this.dummy.posX;
-        this.dummy.lastTickPosY = this.dummy.posY;
-        this.dummy.lastTickPosZ = this.dummy.posZ;
-        this.dummy.rotationYaw = this.dummy.prevRotationYaw = 0;
-        this.dummy.rotationPitch = this.dummy.prevRotationPitch = 0;
-        this.dummy.rotationYawHead = this.dummy.prevRotationYawHead = 0;
-        this.dummy.renderYawOffset = this.dummy.prevRenderYawOffset = 0;
+        this.dummy.setPos(pos.x, pos.y, pos.z);
+        this.dummy.xo = this.dummy.getX();
+        this.dummy.yo = this.dummy.getY();
+        this.dummy.zo = this.dummy.getZ();
+        this.dummy.xOld = this.dummy.getX();
+        this.dummy.yOld = this.dummy.getY();
+        this.dummy.zOld = this.dummy.getZ();
+        this.dummy.yRot = this.dummy.yRotO = 0;
+        this.dummy.xRot = this.dummy.xRotO = 0;
+        this.dummy.yHeadRot = this.dummy.yHeadRotO = 0;
+        this.dummy.yBodyRot = this.dummy.yBodyRotO = 0;
 
         return this.dummy;
     }

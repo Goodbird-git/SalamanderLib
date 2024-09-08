@@ -10,22 +10,23 @@ import com.goodbird.salamanderlib.molang.functions.AsinDegrees;
 import com.goodbird.salamanderlib.molang.functions.Atan2Degrees;
 import com.goodbird.salamanderlib.molang.functions.AtanDegrees;
 import com.google.gson.JsonElement;
+import software.bernie.geckolib3.core.molang.LazyVariable;
+import software.bernie.geckolib3.core.molang.MolangException;
+import software.bernie.geckolib3.core.molang.MolangParser;
+import software.bernie.geckolib3.core.molang.expressions.MolangAssignment;
+import software.bernie.geckolib3.core.molang.expressions.MolangExpression;
+import software.bernie.geckolib3.core.molang.expressions.MolangMultiStatement;
+import software.bernie.geckolib3.core.molang.expressions.MolangValue;
+import software.bernie.geckolib3.core.molang.functions.CosDegrees;
+import software.bernie.geckolib3.core.molang.functions.SinDegrees;
 import software.bernie.shadowed.eliotlash.mclib.math.Constant;
 import software.bernie.shadowed.eliotlash.mclib.math.IValue;
 import software.bernie.shadowed.eliotlash.mclib.math.Variable;
-import software.bernie.shadowed.eliotlash.molang.MolangException;
-import software.bernie.shadowed.eliotlash.molang.MolangParser;
-import software.bernie.shadowed.eliotlash.molang.expressions.MolangAssignment;
-import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
-import software.bernie.shadowed.eliotlash.molang.expressions.MolangMultiStatement;
-import software.bernie.shadowed.eliotlash.molang.expressions.MolangValue;
-import software.bernie.shadowed.eliotlash.molang.functions.CosDegrees;
-import software.bernie.shadowed.eliotlash.molang.functions.SinDegrees;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AdvMolangParser extends MolangParser{
+public class AdvMolangParser extends MolangParser {
     public static final MolangExpression ZERO = new MolangValue(null, new Constant(0));
     public static final MolangExpression ONE = new MolangValue(null, new Constant(1));
     public static final String RETURN = "return ";
@@ -73,9 +74,9 @@ public class AdvMolangParser extends MolangParser{
      * Interactively return a new variable
      */
     @Override
-    protected Variable getVariable(String name)
+    protected LazyVariable getVariable(String name)
     {
-        Variable variable = this.currentStatement == null ? null : this.currentStatement.locals.get(name);
+        LazyVariable variable = this.currentStatement == null ? null : this.currentStatement.locals.get(name);
 
         if (variable == null)
         {
@@ -84,7 +85,7 @@ public class AdvMolangParser extends MolangParser{
 
         if (variable == null)
         {
-            variable = new Variable(name, 0);
+            variable = new LazyVariable(name, 0);
 
             this.register(variable);
         }
@@ -175,11 +176,11 @@ public class AdvMolangParser extends MolangParser{
                 String name = (String) symbols.get(0);
                 symbols = symbols.subList(2, symbols.size());
 
-                Variable variable = null;
+                LazyVariable variable = null;
 
                 if (!this.registerAsGlobals && !this.variables.containsKey(name) && !this.currentStatement.locals.containsKey(name))
                 {
-                    variable = new Variable(name, 0);
+                    variable = new LazyVariable(name, 0);
                     this.currentStatement.locals.put(name, variable);
                 }
                 else

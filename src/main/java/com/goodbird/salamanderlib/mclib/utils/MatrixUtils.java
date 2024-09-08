@@ -3,8 +3,8 @@ package com.goodbird.salamanderlib.mclib.utils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import org.lwjgl.BufferUtils;
 import org.lwjgl.opengl.GL11;
 import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
@@ -14,7 +14,7 @@ import javax.vecmath.*;
 import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 
-@SideOnly(Side.CLIENT)
+@OnlyIn(Dist.CLIENT)
 public class MatrixUtils
 {
     /**
@@ -47,7 +47,7 @@ public class MatrixUtils
     public static Matrix4f readModelView(Matrix4f matrix4f)
     {
         buffer.clear();
-        GL11.glGetFloat(GL11.GL_MODELVIEW_MATRIX, buffer);
+        GL11.glGetFloatv(GL11.GL_MODELVIEW_MATRIX, buffer);
         buffer.get(floats);
 
         matrix4f.set(floats);
@@ -64,7 +64,7 @@ public class MatrixUtils
     private static void readCamera()
     {
         doubleBuffer.clear();
-        GL11.glGetDouble(GL11.GL_MODELVIEW_MATRIX, doubleBuffer);
+        GL11.glGetDoublev(GL11.GL_MODELVIEW_MATRIX, doubleBuffer);
         doubleBuffer.get(doubles);
         camera.set(doubles);
         camera.transpose();
@@ -78,7 +78,7 @@ public class MatrixUtils
     public static Matrix4d readModelViewDouble()
     {
         doubleBuffer.clear();
-        GL11.glGetDouble(GL11.GL_MODELVIEW_MATRIX, doubleBuffer);
+        GL11.glGetDoublev(GL11.GL_MODELVIEW_MATRIX, doubleBuffer);
         doubleBuffer.get(doubles);
 
         Matrix4d matrix4d = new Matrix4d();
@@ -99,7 +99,7 @@ public class MatrixUtils
         buffer.clear();
         buffer.put(floats);
         buffer.rewind();
-        GL11.glLoadMatrix(buffer);
+        GL11.glLoadMatrixf(buffer);
     }
 
     /**
@@ -349,14 +349,14 @@ public class MatrixUtils
 
         parent.mul(parent, readModelViewDouble());
 
-        Entity renderViewEntity = Minecraft.getMinecraft().getRenderViewEntity();
+        Entity renderViewEntity = Minecraft.getInstance().cameraEntity;
 
         Matrix4d cameraTrans = new Matrix4d();
 
         cameraTrans.setIdentity();
-        cameraTrans.m03 = Interpolations.lerp(renderViewEntity.lastTickPosX, renderViewEntity.posX, Minecraft.getMinecraft().getRenderPartialTicks());
-        cameraTrans.m13 = Interpolations.lerp(renderViewEntity.lastTickPosY, renderViewEntity.posY, Minecraft.getMinecraft().getRenderPartialTicks());
-        cameraTrans.m23 = Interpolations.lerp(renderViewEntity.lastTickPosZ, renderViewEntity.posZ, Minecraft.getMinecraft().getRenderPartialTicks());
+        cameraTrans.m03 = Interpolations.lerp(renderViewEntity.xOld, renderViewEntity.getX(), Minecraft.getInstance().getFrameTime());
+        cameraTrans.m13 = Interpolations.lerp(renderViewEntity.yOld, renderViewEntity.getY(), Minecraft.getInstance().getFrameTime());
+        cameraTrans.m23 = Interpolations.lerp(renderViewEntity.zOld, renderViewEntity.getZ(), Minecraft.getInstance().getFrameTime());
 
         parent.mul(cameraTrans, parent);
 

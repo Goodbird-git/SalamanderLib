@@ -1,10 +1,9 @@
 package com.goodbird.salamanderlib.mclib.utils.resources;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.texture.AbstractTexture;
-import net.minecraft.client.renderer.texture.ITextureObject;
+import net.minecraft.client.renderer.texture.Texture;
 import net.minecraft.client.renderer.texture.TextureManager;
-import net.minecraft.client.resources.IResourceManager;
+import net.minecraft.resources.IResourceManager;
 import net.minecraft.util.ResourceLocation;
 import software.bernie.shadowed.eliotlash.mclib.utils.MathUtils;
 
@@ -12,7 +11,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.Arrays;
 
-public class GifTexture extends AbstractTexture
+public class GifTexture extends Texture
 {
     public static int globalTick = 0;
     public static int entityTick = -1;
@@ -28,11 +27,11 @@ public class GifTexture extends AbstractTexture
 
     public static void bindTexture(ResourceLocation location, int ticks, float partialTicks)
     {
-        TextureManager textures = Minecraft.getMinecraft().renderEngine;
+        TextureManager textures = Minecraft.getInstance().textureManager;
 
-        if (location.getResourcePath().endsWith("gif"))
+        if (location.getPath().endsWith("gif"))
         {
-            ITextureObject object = textures.getTexture(location);
+            Texture object = textures.getTexture(location);
 
             if (object instanceof GifTexture)
             {
@@ -42,7 +41,7 @@ public class GifTexture extends AbstractTexture
             }
         }
 
-        textures.bindTexture(location);
+        textures.bind(location);
     }
 
     public static void updateTick()
@@ -66,29 +65,23 @@ public class GifTexture extends AbstractTexture
             this.duration += delay;
         }
     }
-
     @Override
-    public void loadTexture(IResourceManager resourceManager) throws IOException
-    {}
+    public int getId() {
+        Minecraft mc = Minecraft.getInstance();
+        TextureManager textures = mc.textureManager;
+        ResourceLocation rl = this.getFrame(entityTick > -1 ? entityTick : globalTick, mc.getFrameTime());
 
-    @Override
-    public int getGlTextureId()
-    {
-        Minecraft mc = Minecraft.getMinecraft();
-        TextureManager textures = mc.renderEngine;
-        ResourceLocation rl = this.getFrame(entityTick > -1 ? entityTick : globalTick, mc.getRenderPartialTicks());
+        textures.bind(rl);
 
-        textures.bindTexture(rl);
-
-        ITextureObject texture = textures.getTexture(rl);
+        Texture texture = textures.getTexture(rl);
 
         this.updateMultiTex(texture);
 
-        return texture.getGlTextureId();
+        return texture.getId();
     }
 
     @Override
-    public void deleteGlTexture()
+    public void releaseId()
     {}
 
     public ResourceLocation getFrame(int ticks, float partialTicks)
@@ -115,13 +108,13 @@ public class GifTexture extends AbstractTexture
         return this.frames[index];
     }
 
-    private void updateMultiTex(ITextureObject texture)
+    private void updateMultiTex(Texture texture)
     {
         if (!tried)
         {
             try
             {
-                fieldMultiTex = AbstractTexture.class.getField("multiTex");
+                fieldMultiTex = Texture.class.getField("multiTex");
             }
             catch (NoSuchFieldException | SecurityException e)
             {
@@ -131,7 +124,7 @@ public class GifTexture extends AbstractTexture
             tried = true;
         }
 
-        if (texture instanceof AbstractTexture && fieldMultiTex != null)
+        if (texture instanceof Texture && fieldMultiTex != null)
         {
             try
             {
@@ -142,5 +135,10 @@ public class GifTexture extends AbstractTexture
             catch (IllegalArgumentException | IllegalAccessException e)
             {}
         }
+    }
+
+    @Override
+    public void load(IResourceManager p_195413_1_) throws IOException {
+
     }
 }

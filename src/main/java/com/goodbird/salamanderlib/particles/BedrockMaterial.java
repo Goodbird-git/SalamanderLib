@@ -1,6 +1,6 @@
 package com.goodbird.salamanderlib.particles;
 
-import net.minecraft.client.renderer.GlStateManager;
+import com.mojang.blaze3d.platform.GlStateManager;
 import org.lwjgl.opengl.GL11;
 
 public enum  BedrockMaterial
@@ -32,28 +32,28 @@ public enum  BedrockMaterial
         switch (this)
         {
             case OPAQUE:
-                GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-                GlStateManager.alphaFunc(GL11.GL_GREATER, 0F);
-                GlStateManager.disableBlend();
-                GlStateManager.enableAlpha();
+                GlStateManager._blendFunc(GlStateManager.SourceFactor.SRC_ALPHA.value, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA.value);
+                GlStateManager._alphaFunc(GL11.GL_GREATER, 0F);
+                GlStateManager._disableBlend();
+                GlStateManager._enableAlphaTest();
                 break;
             case ALPHA:
-                GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-                GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
-                GlStateManager.disableBlend();
-                GlStateManager.enableAlpha();
+                GlStateManager._blendFunc(GlStateManager.SourceFactor.SRC_ALPHA.value, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA.value);
+                GlStateManager._alphaFunc(GL11.GL_GREATER, 0.1F);
+                GlStateManager._disableBlend();
+                GlStateManager._enableAlphaTest();
                 break;
             case BLEND:
-                GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-                GlStateManager.alphaFunc(GL11.GL_GREATER, 0.0F);
-                GlStateManager.enableBlend();
-                GlStateManager.enableAlpha();
+                GlStateManager._blendFunc(GlStateManager.SourceFactor.SRC_ALPHA.value, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA.value);
+                GlStateManager._alphaFunc(GL11.GL_GREATER, 0.0F);
+                GlStateManager._enableBlend();
+                GlStateManager._enableAlphaTest();
                 break;
             case ADDITIVE:
-                GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE);
-                GlStateManager.alphaFunc(GL11.GL_GREATER, 0.0F);
-                GlStateManager.enableBlend();
-                GlStateManager.enableAlpha();
+                GlStateManager._blendFunc(GlStateManager.SourceFactor.SRC_ALPHA.value, GlStateManager.DestFactor.ONE.value);
+                GlStateManager._alphaFunc(GL11.GL_GREATER, 0.0F);
+                GlStateManager._enableBlend();
+                GlStateManager._enableAlphaTest();
                 break;
         }
     }
@@ -66,10 +66,10 @@ public enum  BedrockMaterial
             case ALPHA:
             case BLEND:
             case ADDITIVE:
-                GlStateManager.blendFunc(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA);
-                GlStateManager.disableBlend();
-                GlStateManager.enableAlpha();
-                GlStateManager.alphaFunc(GL11.GL_GREATER, 0.1F);
+                GlStateManager._blendFunc(GlStateManager.SourceFactor.SRC_ALPHA.value, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA.value);
+                GlStateManager._disableBlend();
+                GlStateManager._enableAlphaTest();
+                GlStateManager._alphaFunc(GL11.GL_GREATER, 0.1F);
                 break;
         }
     }

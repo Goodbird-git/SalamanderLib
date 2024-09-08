@@ -2,11 +2,11 @@ package com.goodbird.salamanderlib.mclib.utils;
 
 import java.util.Arrays;
 
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
-import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.entity.LivingEntity;
+import net.minecraft.inventory.EquipmentSlotType;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHandSide;
+import net.minecraft.item.Items;
+import net.minecraft.util.HandSide;
 import net.minecraft.world.World;
 
 /**
@@ -15,7 +15,7 @@ import net.minecraft.world.World;
  * This class is used in model editor as a player substitution for the model
  * methods.
  */
-public class DummyEntity extends EntityLivingBase
+public class DummyEntity extends LivingEntity
 {
     private final ItemStack[] held;
     public ItemStack right;
@@ -23,7 +23,7 @@ public class DummyEntity extends EntityLivingBase
 
     public DummyEntity(World worldIn)
     {
-        super(worldIn);
+        super(null, worldIn);
 
         this.right = new ItemStack(Items.DIAMOND_SWORD);
         this.left = new ItemStack(Items.GOLDEN_SWORD);
@@ -38,8 +38,8 @@ public class DummyEntity extends EntityLivingBase
 
     public void toggleItems(boolean toggle)
     {
-        int main = EntityEquipmentSlot.MAINHAND.getSlotIndex();
-        int off = EntityEquipmentSlot.OFFHAND.getSlotIndex();
+        int main = EquipmentSlotType.MAINHAND.getIndex();
+        int off = EquipmentSlotType.OFFHAND.getIndex();
 
         if (toggle)
         {
@@ -53,26 +53,23 @@ public class DummyEntity extends EntityLivingBase
     }
 
     @Override
-    public Iterable<ItemStack> getArmorInventoryList()
-    {
+    public Iterable<ItemStack> getArmorSlots() {
         return Arrays.asList(this.held);
     }
 
     @Override
-    public ItemStack getItemStackFromSlot(EntityEquipmentSlot slotIn)
+    public ItemStack getItemBySlot(EquipmentSlotType slotIn)
     {
-        return this.held[slotIn.getSlotIndex()];
+        return this.held[slotIn.getIndex()];
     }
 
     @Override
-    public void setItemStackToSlot(EntityEquipmentSlot slotIn, ItemStack stack)
-    {
-        this.held[slotIn.getSlotIndex()] = stack;
+    public void setItemSlot(EquipmentSlotType slotIn, ItemStack stack) {
+        this.held[slotIn.getIndex()] = stack;
     }
 
     @Override
-    public EnumHandSide getPrimaryHand()
-    {
-        return EnumHandSide.RIGHT;
+    public HandSide getMainArm() {
+        return HandSide.RIGHT;
     }
 }

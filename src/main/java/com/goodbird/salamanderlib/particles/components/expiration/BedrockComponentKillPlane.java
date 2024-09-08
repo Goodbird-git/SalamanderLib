@@ -6,9 +6,9 @@ import com.goodbird.salamanderlib.particles.emitter.BedrockEmitter;
 import com.goodbird.salamanderlib.particles.emitter.BedrockParticle;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
+import software.bernie.geckolib3.core.molang.MolangException;
+import software.bernie.geckolib3.core.molang.MolangParser;
 import software.bernie.shadowed.eliotlash.mclib.math.Operation;
-import software.bernie.shadowed.eliotlash.molang.MolangException;
-import software.bernie.shadowed.eliotlash.molang.MolangParser;
 
 import javax.vecmath.Vector3d;
 

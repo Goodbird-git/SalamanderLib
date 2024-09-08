@@ -15,8 +15,8 @@ import com.goodbird.salamanderlib.particles.components.IComponentParticleMorphRe
 import com.goodbird.salamanderlib.particles.components.IComponentParticleUpdate;
 import com.goodbird.salamanderlib.particles.components.motion.BedrockComponentInitialSpeed;
 import net.minecraft.util.ResourceLocation;
+import software.bernie.geckolib3.core.molang.MolangParser;
 import software.bernie.shadowed.eliotlash.mclib.math.Variable;
-import software.bernie.shadowed.eliotlash.molang.MolangParser;
 
 import java.util.ArrayList;
 import java.util.Collections;

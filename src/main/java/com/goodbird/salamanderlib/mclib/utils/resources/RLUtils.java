@@ -3,12 +3,13 @@ package com.goodbird.salamanderlib.mclib.utils.resources;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonNull;
 import com.google.gson.JsonPrimitive;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraft.client.resources.IResource;
-import net.minecraft.client.resources.SimpleResource;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagString;
+import net.minecraft.client.Minecraft;
+import net.minecraft.nbt.INBT;
+import net.minecraft.nbt.StringNBT;
+import net.minecraft.resources.IResource;
+import net.minecraft.resources.SimpleResource;
+import net.minecraftforge.api.distmarker.Dist;
+import net.minecraftforge.api.distmarker.OnlyIn;
 import net.minecraft.util.ResourceLocation;
 
 import javax.imageio.ImageIO;
@@ -32,7 +33,7 @@ public class RLUtils
     /**
      * Get stream for multi resource location
      */
-    @SideOnly(Side.CLIENT)
+    @OnlyIn(Dist.CLIENT)
     public static IResource getStreamForMultiskin(MultiResourceLocation multi) throws IOException
     {
         if (multi.children.isEmpty())
@@ -53,8 +54,7 @@ public class RLUtils
                 //MultiskinThread.clear();
                 ByteArrayOutputStream stream = new ByteArrayOutputStream();
                 ImageIO.write(TextureProcessor.postProcess(multi), "png", stream);
-
-                return new SimpleResource("McLib multiskin handler", multi, new ByteArrayInputStream(stream.toByteArray()), null, null);
+                return new SimpleResource("McLib multiskin handler", multi, new ByteArrayInputStream(stream.toByteArray()), null);
             //}
         }
         catch (IOException e)
@@ -96,7 +96,7 @@ public class RLUtils
         return new TextureLocation(domain, path);
     }
 
-    public static ResourceLocation create(NBTBase base)
+    public static ResourceLocation create(INBT base)
     {
         ResourceLocation location = MultiResourceLocation.from(base);
 
@@ -105,9 +105,9 @@ public class RLUtils
             return location;
         }
 
-        if (base instanceof NBTTagString)
+        if (base instanceof StringNBT)
         {
-            return create(((NBTTagString) base).getString());
+            return create(base.getAsString());
         }
 
         return null;
@@ -130,7 +130,7 @@ public class RLUtils
         return null;
     }
 
-    public static NBTBase writeNbt(ResourceLocation location)
+    public static INBT writeNbt(ResourceLocation location)
     {
         if (location instanceof IWritableLocation)
         {
@@ -138,7 +138,7 @@ public class RLUtils
         }
         else if (location != null)
         {
-            return new NBTTagString(location.toString());
+            return StringNBT.valueOf(location.toString());
         }
 
         return null;

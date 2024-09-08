@@ -39,8 +39,8 @@ import com.goodbird.salamanderlib.particles.components.shape.BedrockComponentSha
 import com.goodbird.salamanderlib.particles.components.shape.BedrockComponentShapeEntityAABB;
 import com.goodbird.salamanderlib.particles.components.shape.BedrockComponentShapePoint;
 import com.goodbird.salamanderlib.particles.components.shape.BedrockComponentShapeSphere;
+import software.bernie.geckolib3.core.molang.MolangException;
 import software.bernie.shadowed.eliotlash.mclib.math.Operation;
-import software.bernie.shadowed.eliotlash.molang.MolangException;
 
 import java.lang.reflect.Type;
 import java.util.Map;

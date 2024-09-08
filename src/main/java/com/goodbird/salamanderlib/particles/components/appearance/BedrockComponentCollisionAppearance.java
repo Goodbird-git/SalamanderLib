@@ -11,10 +11,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.util.ResourceLocation;
+import software.bernie.geckolib3.core.molang.MolangException;
+import software.bernie.geckolib3.core.molang.MolangParser;
+import software.bernie.geckolib3.core.molang.expressions.MolangExpression;
 import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
-import software.bernie.shadowed.eliotlash.molang.MolangException;
-import software.bernie.shadowed.eliotlash.molang.MolangParser;
-import software.bernie.shadowed.eliotlash.molang.expressions.MolangExpression;
 
 import java.util.Map;
 import java.util.Set;
@@ -152,10 +152,10 @@ public class BedrockComponentCollisionAppearance extends BedrockComponentAppeara
         float v1 = this.v1 / (float) this.textureHeight;
         float v2 = this.v2 / (float) this.textureHeight;
 
-        builder.pos(this.vertices[0].x, this.vertices[0].y, this.vertices[0].z).tex(u1, v1).lightmap(lightX, lightY).color(particle.r, particle.g, particle.b, particle.a).endVertex();
-        builder.pos(this.vertices[1].x, this.vertices[1].y, this.vertices[1].z).tex(u2, v1).lightmap(lightX, lightY).color(particle.r, particle.g, particle.b, particle.a).endVertex();
-        builder.pos(this.vertices[2].x, this.vertices[2].y, this.vertices[2].z).tex(u2, v2).lightmap(lightX, lightY).color(particle.r, particle.g, particle.b, particle.a).endVertex();
-        builder.pos(this.vertices[3].x, this.vertices[3].y, this.vertices[3].z).tex(u1, v2).lightmap(lightX, lightY).color(particle.r, particle.g, particle.b, particle.a).endVertex();
+        builder.vertex(this.vertices[0].x, this.vertices[0].y, this.vertices[0].z).uv(u1, v1).uv2(lightX, lightY).color(particle.r, particle.g, particle.b, particle.a).endVertex();
+        builder.vertex(this.vertices[1].x, this.vertices[1].y, this.vertices[1].z).uv(u2, v1).uv2(lightX, lightY).color(particle.r, particle.g, particle.b, particle.a).endVertex();
+        builder.vertex(this.vertices[2].x, this.vertices[2].y, this.vertices[2].z).uv(u2, v2).uv2(lightX, lightY).color(particle.r, particle.g, particle.b, particle.a).endVertex();
+        builder.vertex(this.vertices[3].x, this.vertices[3].y, this.vertices[3].z).uv(u1, v2).uv2(lightX, lightY).color(particle.r, particle.g, particle.b, particle.a).endVertex();
 
         if (!particle.isCollisionTinting(emitter))
         {

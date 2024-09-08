@@ -8,8 +8,8 @@ import com.goodbird.salamanderlib.particles.emitter.BedrockParticle;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import net.minecraft.client.renderer.BufferBuilder;
-import software.bernie.shadowed.eliotlash.molang.MolangException;
-import software.bernie.shadowed.eliotlash.molang.MolangParser;
+import software.bernie.geckolib3.core.molang.MolangException;
+import software.bernie.geckolib3.core.molang.MolangParser;
 
 public class BedrockComponentAppearanceTinting extends BedrockComponentBase implements IComponentParticleRender
 {

@@ -118,7 +118,7 @@ public class BedrockLibrary {
      */
     public BedrockScheme loadFactory(ResourceLocation resLoc) {
         try {
-            return BedrockScheme.parse(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("assets/"+resLoc.getResourceDomain()+"/" + resLoc.getResourcePath()), StandardCharsets.UTF_8)).factory(true);
+            return BedrockScheme.parse(IOUtils.toString(this.getClass().getClassLoader().getResourceAsStream("assets/"+resLoc.getNamespace()+"/" + resLoc.getPath()), StandardCharsets.UTF_8)).factory(true);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -127,7 +127,7 @@ public class BedrockLibrary {
     }
 
     public String getName(ResourceLocation resLoc){
-        String[] parts = resLoc.getResourcePath().split("/");
+        String[] parts = resLoc.getPath().split("/");
         String name = parts[parts.length-1];
         return name.substring(0, name.indexOf(".json"));
     }
