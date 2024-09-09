@@ -723,6 +723,7 @@ public class BedrockEmitter
 
             GlStateManager._disableCull();
             RenderSystem.enableTexture();
+            GlStateManager._enableDepthTest();
             //GlStateManager._enableTexture2D();
         }
     }

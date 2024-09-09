@@ -10,6 +10,7 @@ import com.mojang.blaze3d.vertex.IVertexBuilder;
 import net.minecraft.client.gui.screen.inventory.InventoryScreen;
 import net.minecraft.client.renderer.IRenderTypeBuffer;
 import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.RenderType;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.entity.LivingEntity;
 import net.minecraft.util.math.MathHelper;
@@ -19,9 +20,11 @@ import net.minecraft.util.text.TextFormatting;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 import org.lwjgl.opengl.GL11;
+import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.renderers.geo.GeoEntityRenderer;
 import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
 
+import javax.annotation.Nullable;
 import javax.vecmath.Matrix3f;
 
 public class ParticleExampleEntityRenderer extends GeoEntityRenderer<ParticleExampleEntity> {
@@ -30,7 +33,9 @@ public class ParticleExampleEntityRenderer extends GeoEntityRenderer<ParticleExa
         super(renderManager, new ParticleExampleEntityModel());
     }
 
-    public void renderLate(ParticleExampleEntity animatable, MatrixStack MATRIX_STACK, float ticks, IRenderTypeBuffer renderTypeBuffer, IVertexBuilder bufferIn, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+    @Override
+    public void render(GeoModel model, ParticleExampleEntity animatable, float partialTicks, RenderType type, MatrixStack matrixStackIn, @Nullable IRenderTypeBuffer renderTypeBuffer, @Nullable IVertexBuilder vertexBuilder, int packedLightIn, int packedOverlayIn, float red, float green, float blue, float alpha) {
+        super.render(model, animatable, partialTicks, type, matrixStackIn, renderTypeBuffer, vertexBuilder, packedLightIn, packedOverlayIn, red, green, blue, alpha);
         BedrockEmitter emitter = animatable.emitter;
         emitter.prevGlobal.x=emitter.lastGlobal.x;
         emitter.prevGlobal.y=emitter.lastGlobal.y;
@@ -40,11 +45,11 @@ public class ParticleExampleEntityRenderer extends GeoEntityRenderer<ParticleExa
         emitter.lastGlobal.y=animatable.getY();
         emitter.lastGlobal.z=animatable.getZ();
         //RenderHelper.disableStandardItemLighting();
-        MATRIX_STACK.pushPose();
+        matrixStackIn.pushPose();
         GlStateManager._pushMatrix();
         boolean shouldSit = (animatable.getControllingPassenger() != null && animatable.getControllingPassenger().shouldRiderSit());
-        Pair<Float,Float> rotations = calculateRotations(animatable,ticks,shouldSit);
-        deapplyRotations(MATRIX_STACK, animatable,this.handleRotationFloat(animatable, ticks),rotations.getKey(),ticks);
+        Pair<Float,Float> rotations = calculateRotations(animatable,partialTicks,shouldSit);
+        deapplyRotations(matrixStackIn, animatable,this.handleRotationFloat(animatable, partialTicks),rotations.getKey(),partialTicks);
 
         GlStateManager._translated(-animatable.getX(),-animatable.getY(),-animatable.getZ());
         emitter.rotation.setIdentity();
@@ -54,14 +59,14 @@ public class ParticleExampleEntityRenderer extends GeoEntityRenderer<ParticleExa
 //		MATRIX_STACK.rotateY((float) (Math.PI/2));
 //		MATRIX_STACK.scale(5,5,5);
 
-        IMatrix4f full = (IMatrix4f)(Object)MATRIX_STACK.last().pose();
+        IMatrix4f full = (IMatrix4f)(Object)matrixStackIn.last().pose();
         emitter.rotation = new Matrix3f(full.m00(),full.m01(),full.m02(),full.m10(),full.m11(),full.m12(),full.m20(),full.m21(),full.m22());
         emitter.lastGlobal.x+=full.m03();
         emitter.lastGlobal.y+=full.m13();
         emitter.lastGlobal.z+=full.m23();
 
-        MATRIX_STACK.popPose();
-        emitter.render(ticks);
+        matrixStackIn.popPose();
+        emitter.render(partialTicks);
         GlStateManager._popMatrix();
         //RenderHelper.enableStandardItemLighting();
     }
