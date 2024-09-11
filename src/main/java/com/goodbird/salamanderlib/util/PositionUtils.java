@@ -2,6 +2,8 @@ package com.goodbird.salamanderlib.util;
 
 
 import com.goodbird.salamanderlib.mclib.utils.MatrixUtils;
+import com.goodbird.salamanderlib.mixin.impl.IMatrix4f;
+import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.entity.EntityRendererManager;
 import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
@@ -53,9 +55,9 @@ public class PositionUtils {
         }
     }
 
-    public static Vector3d getCurrentRenderPos() {
+    public static Vector3d getCurrentRenderPos(MatrixStack matrixStackIn) {
         Entity camera = Minecraft.getInstance().cameraEntity;
-        Matrix4f matrix4f = getCurrentMatrix();
+        Matrix4f matrix4f = getCurrentMatrix(matrixStackIn);
         MatrixUtils.Transformation transformation = MatrixUtils.extractTransformations(null, matrix4f);
         double dl = matrix4f.m03;
         double du = matrix4f.m13;
@@ -93,15 +95,23 @@ public class PositionUtils {
         double renderPosX = camera.xOld + (camera.getX() - camera.xOld) * (double) Minecraft.getInstance().getFrameTime();
         double renderPosY = camera.yOld + (camera.getY() - camera.yOld) * (double) Minecraft.getInstance().getFrameTime();
         double renderPosZ = camera.zOld + (camera.getZ() - camera.zOld) * (double) Minecraft.getInstance().getFrameTime();
-        Vector3d res = new Vector3d(pos.x + renderPosX, pos.y + renderPosY, pos.z + renderPosZ);
+        Vector3d res = new Vector3d(pos.x + renderPosX, pos.y + renderPosY+1.6, pos.z + renderPosZ);
         return res;
     }
+    //MatrixStack matrixStackIn
 
-    public static Matrix4f getCurrentMatrix() {
+    public static Matrix4f getCurrentMatrix(MatrixStack matrixStackIn) {
         MatrixUtils.matrix = null;
-        MatrixUtils.captureMatrix();
+        IMatrix4f cur = (IMatrix4f)(Object) matrixStackIn.last().pose();
+        MatrixUtils.matrix = new Matrix4f(cur.m00(), cur.m01(), cur.m02(), cur.m03(), cur.m10(), cur.m11(), cur.m12(), cur.m13(), cur.m20(), cur.m21(), cur.m22(), cur.m23(), cur.m30(), cur.m31(), cur.m32(), cur.m33());
         return MatrixUtils.matrix;
     }
+
+//    public static Matrix4f getCurrentMatrix() {
+//        MatrixUtils.matrix = null;
+//        MatrixUtils.captureMatrix();
+//        return MatrixUtils.matrix;
+//    }
 
     public static Matrix4f getBasicRotation() {
         Entity camera = Minecraft.getInstance().cameraEntity;

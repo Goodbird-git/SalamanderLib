@@ -5,7 +5,7 @@
 			"loop": true,
 			"particle_effects": {
 				"0.0": {
-					"effect": "flame",
+					"effect": "snow",
 					"locator": "locator"
 				}
 			}
@@ -20,7 +20,7 @@
 							"vector": [0, 0, 0]
 						},
 						"1.0": {
-							"vector": [0, 2, 0],
+							"vector": [0, 10, 0],
 							"easing": "easeOutQuart"
 						},
 						"2.0": {
@@ -28,7 +28,7 @@
 							"easing": "easeInBounce"
 						},
 						"3.0": {
-							"vector": [0, 2, 0],
+							"vector": [0, 10, 0],
 							"easing": "easeOutQuart"
 						},
 						"4.0": {

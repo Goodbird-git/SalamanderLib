@@ -4,9 +4,11 @@
   "package": "com.goodbird.salamanderlib.mixin.impl",
   "refmap": "mixins.salamanderlib.refmap.json",
   "mixins": [
-    "IMatrix4f"
+    "IMatrix4f",
+    "MixinAnimationController"
   ],
   "client": [
+
   ],
   "server": []
 }

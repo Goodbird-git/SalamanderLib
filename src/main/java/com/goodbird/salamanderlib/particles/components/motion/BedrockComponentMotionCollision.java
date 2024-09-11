@@ -792,6 +792,9 @@ public class BedrockComponentMotionCollision extends BedrockComponentBase implem
     {
         for (AxisAlignedBB axisalignedbb : list)
         {
+            if(aabb.minY<axisalignedbb.maxY){
+                aabb = new AxisAlignedBB(aabb.minX, axisalignedbb.maxY, aabb.minZ, aabb.maxX, aabb.maxY, aabb.maxZ);
+            }
             y = calculateYOffset(axisalignedbb, aabb, y);
         }
 
@@ -872,7 +875,7 @@ public class BedrockComponentMotionCollision extends BedrockComponentBase implem
      * in the Y dimension.  return var2 if the bounding boxes do not overlap or if var2 is closer to 0 then the
      * calculated offset.  Otherwise return the calculated offset.
      */
-    public static double calculateYOffset(AxisAlignedBB thiss, AxisAlignedBB other, double p_72323_2_)
+    public static double calculateYOffset(AxisAlignedBB thiss, AxisAlignedBB  other, double p_72323_2_)
     {
         if (other.maxX > thiss.minX && other.minX < thiss.maxX)
         {

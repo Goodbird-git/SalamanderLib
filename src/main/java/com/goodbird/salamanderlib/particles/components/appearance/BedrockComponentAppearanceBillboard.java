@@ -283,7 +283,7 @@ public class BedrockComponentAppearanceBillboard extends BedrockComponentBase im
 
         this.rotation.rotZ(angle / 180 * (float) Math.PI);
         this.transform.mul(this.rotation);
-        this.transform.setTranslation(new Vector3f((float) px, (float) py, (float) pz));
+        this.transform.setTranslation(new Vector3f((float) px, (float) py-1.6f, (float) pz));
 
         for (Vector4f vertex : this.vertices)
         {

@@ -20,7 +20,7 @@ public class TileMagicTorch extends TileEntity implements IAnimatable {
 
     @SuppressWarnings("unchecked")
     private <E extends TileEntity & IAnimatable> PlayState predicate(AnimationEvent<E> event) {
-        event.getController().setAnimation(new AnimationBuilder().addAnimation("test", true));
+        event.getController().setAnimation(new AnimationBuilder().addAnimation("idle", true));
         return PlayState.CONTINUE;
     }
 

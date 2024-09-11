@@ -52,6 +52,15 @@ public class BedrockLibrary {
         }
     }
 
+    public boolean has(String identifier) {
+        for (BedrockScheme scheme: presets.values()) {
+            if(scheme.identifier.equals(identifier)){
+                return true;
+            }
+        }
+        return false;
+    }
+
     public BedrockScheme get(String identifier) {
         for (BedrockScheme scheme: presets.values()) {
             if(scheme.identifier.equals(identifier)){
