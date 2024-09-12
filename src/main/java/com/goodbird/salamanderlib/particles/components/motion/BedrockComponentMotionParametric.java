@@ -12,7 +12,7 @@ import software.bernie.geckolib3.core.molang.MolangException;
 import com.goodbird.salamanderlib.molang.MolangParser;
 import com.goodbird.salamanderlib.molang.expressions.MolangExpression;
 
-import javax.vecmath.Vector3f;
+import com.goodbird.salamanderlib.vecmath.Vector3f;
 
 public class BedrockComponentMotionParametric extends BedrockComponentMotion implements IComponentParticleInitialize, IComponentParticleUpdate
 {

@@ -27,9 +27,9 @@ import software.bernie.shadowed.eliotlash.mclib.math.IValue;
 import software.bernie.shadowed.eliotlash.mclib.math.Variable;
 import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
 
-import javax.vecmath.Matrix3f;
-import javax.vecmath.Vector3d;
-import javax.vecmath.Vector3f;
+import com.goodbird.salamanderlib.vecmath.Matrix3f;
+import com.goodbird.salamanderlib.vecmath.Vector3d;
+import com.goodbird.salamanderlib.vecmath.Vector3f;
 import java.util.*;
 
 public class BedrockEmitter

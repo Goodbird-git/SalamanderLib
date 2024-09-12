@@ -10,10 +10,10 @@ import software.bernie.geckolib3.core.molang.MolangException;
 import com.goodbird.salamanderlib.molang.MolangParser;
 import com.goodbird.salamanderlib.molang.expressions.MolangExpression;
 
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Quat4f;
-import javax.vecmath.Vector3f;
-import javax.vecmath.Vector4f;
+import com.goodbird.salamanderlib.vecmath.Matrix4f;
+import com.goodbird.salamanderlib.vecmath.Quat4f;
+import com.goodbird.salamanderlib.vecmath.Vector3f;
+import com.goodbird.salamanderlib.vecmath.Vector4f;
 
 public class BedrockComponentShapeDisc extends BedrockComponentShapeSphere
 {

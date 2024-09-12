@@ -5,10 +5,10 @@
   "refmap": "mixins.salamanderlib.refmap.json",
   "mixins": [
     "IMatrix4f",
+    "IResLoc",
     "MixinAnimationController"
   ],
   "client": [
-
   ],
   "server": []
 }

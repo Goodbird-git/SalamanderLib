@@ -1,5 +1,6 @@
 package com.goodbird.salamanderlib.mclib.utils;
 
+import com.goodbird.salamanderlib.vecmath.*;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.util.math.MathHelper;
@@ -10,7 +11,6 @@ import org.lwjgl.opengl.GL11;
 import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
 
 import javax.annotation.Nullable;
-import javax.vecmath.*;
 import java.nio.DoubleBuffer;
 import java.nio.FloatBuffer;
 

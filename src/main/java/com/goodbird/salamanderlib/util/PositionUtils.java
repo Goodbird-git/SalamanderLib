@@ -5,17 +5,14 @@ import com.goodbird.salamanderlib.mclib.utils.MatrixUtils;
 import com.goodbird.salamanderlib.mixin.impl.IMatrix4f;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.entity.EntityRendererManager;
-import net.minecraft.client.renderer.tileentity.TileEntityRendererDispatcher;
 import net.minecraft.client.settings.PointOfView;
 import net.minecraft.entity.Entity;
 import org.lwjgl.opengl.GL11;
-import software.bernie.shadowed.eliotlash.mclib.math.functions.limit.Min;
 
-import javax.vecmath.Matrix3f;
-import javax.vecmath.Matrix4d;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Vector3d;
+import com.goodbird.salamanderlib.vecmath.Matrix3f;
+import com.goodbird.salamanderlib.vecmath.Matrix4d;
+import com.goodbird.salamanderlib.vecmath.Matrix4f;
+import com.goodbird.salamanderlib.vecmath.Vector3d;
 
 public class PositionUtils {
     public static void setInitialWorldPos() {

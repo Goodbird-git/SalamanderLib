@@ -4,6 +4,10 @@ import com.goodbird.salamanderlib.mclib.utils.DummyEntity;
 import com.goodbird.salamanderlib.mclib.utils.MatrixUtils;
 import com.goodbird.salamanderlib.particles.components.appearance.BedrockComponentCollisionAppearance;
 import com.goodbird.salamanderlib.particles.components.appearance.BedrockComponentCollisionTinting;
+import com.goodbird.salamanderlib.vecmath.Matrix3f;
+import com.goodbird.salamanderlib.vecmath.SingularMatrixException;
+import com.goodbird.salamanderlib.vecmath.Vector3d;
+import com.goodbird.salamanderlib.vecmath.Vector3f;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.LivingEntity;
@@ -11,7 +15,6 @@ import net.minecraftforge.api.distmarker.Dist;
 import net.minecraftforge.api.distmarker.OnlyIn;
 import com.goodbird.salamanderlib.molang.expressions.MolangExpression;
 
-import javax.vecmath.*;
 import java.util.HashMap;
 import java.util.Map;
 

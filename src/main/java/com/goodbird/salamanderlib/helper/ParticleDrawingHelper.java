@@ -14,9 +14,9 @@ import software.bernie.geckolib3.geo.render.built.GeoModel;
 import software.bernie.geckolib3.renderers.geo.IGeoRenderer;
 import software.bernie.geckolib3.util.RenderUtils;
 
-import javax.vecmath.Matrix3f;
-import javax.vecmath.Matrix4f;
-import javax.vecmath.Vector3d;
+import com.goodbird.salamanderlib.vecmath.Matrix3f;
+import com.goodbird.salamanderlib.vecmath.Matrix4f;
+import com.goodbird.salamanderlib.vecmath.Vector3d;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;

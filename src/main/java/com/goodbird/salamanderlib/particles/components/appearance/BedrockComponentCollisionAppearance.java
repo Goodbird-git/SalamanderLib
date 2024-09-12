@@ -19,9 +19,9 @@ import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
 import java.util.Map;
 import java.util.Set;
 
-import javax.vecmath.Vector3d;
-import javax.vecmath.Vector3f;
-import javax.vecmath.Vector4f;
+import com.goodbird.salamanderlib.vecmath.Vector3d;
+import com.goodbird.salamanderlib.vecmath.Vector3f;
+import com.goodbird.salamanderlib.vecmath.Vector4f;
 
 public class BedrockComponentCollisionAppearance extends BedrockComponentAppearanceBillboard implements IComponentParticleRender
 {

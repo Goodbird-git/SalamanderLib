@@ -17,9 +17,9 @@ import net.minecraftforge.api.distmarker.OnlyIn;
 import software.bernie.geckolib3.core.molang.MolangException;
 import com.goodbird.salamanderlib.molang.MolangParser;
 import software.bernie.shadowed.eliotlash.mclib.utils.Interpolations;
-import javax.vecmath.Matrix3d;
-import javax.vecmath.Vector3d;
-import javax.vecmath.Vector3f;
+import com.goodbird.salamanderlib.vecmath.Matrix3d;
+import com.goodbird.salamanderlib.vecmath.Vector3d;
+import com.goodbird.salamanderlib.vecmath.Vector3f;
 
 public class BedrockComponentParticleMorph extends BedrockComponentBase implements IComponentParticleMorphRender, IComponentParticleInitialize
 {

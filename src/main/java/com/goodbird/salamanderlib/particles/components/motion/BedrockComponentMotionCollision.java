@@ -19,8 +19,8 @@ import software.bernie.shadowed.eliotlash.mclib.math.Operation;
 import software.bernie.shadowed.eliotlash.mclib.utils.MathUtils;
 
 import javax.annotation.Nullable;
-import javax.vecmath.Vector3d;
-import javax.vecmath.Vector3f;
+import com.goodbird.salamanderlib.vecmath.Vector3d;
+import com.goodbird.salamanderlib.vecmath.Vector3f;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;

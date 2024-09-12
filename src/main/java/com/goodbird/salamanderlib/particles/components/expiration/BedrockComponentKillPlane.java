@@ -10,7 +10,7 @@ import software.bernie.geckolib3.core.molang.MolangException;
 import com.goodbird.salamanderlib.molang.MolangParser;
 import software.bernie.shadowed.eliotlash.mclib.math.Operation;
 
-import javax.vecmath.Vector3d;
+import com.goodbird.salamanderlib.vecmath.Vector3d;
 
 public class BedrockComponentKillPlane extends BedrockComponentBase implements IComponentParticleUpdate
 {

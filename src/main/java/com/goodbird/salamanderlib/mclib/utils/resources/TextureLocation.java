@@ -1,9 +1,7 @@
 package com.goodbird.salamanderlib.mclib.utils.resources;
 
+import com.goodbird.salamanderlib.mixin.impl.IResLoc;
 import net.minecraft.util.ResourceLocation;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 
 /**
  * Texture location
@@ -38,38 +36,7 @@ public class TextureLocation extends ResourceLocation
 
     public void set(String domain, String path)
     {
-        /* Guess what it does */
-        Field[] fields = ResourceLocation.class.getDeclaredFields();
-
-        for (Field field : fields)
-        {
-            try
-            {
-                this.unlockField(field);
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-            }
-        }
-
-        try
-        {
-            fields[0].set(this, domain);
-            fields[1].set(this, path);
-        }
-        catch (Exception e)
-        {
-            e.printStackTrace();
-        }
-    }
-
-    protected void unlockField(Field field) throws Exception
-    {
-        field.setAccessible(true);
-
-        Field modifiers = Field.class.getDeclaredField("modifiers");
-        modifiers.setAccessible(true);
-        modifiers.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+        ((IResLoc)this).setNamespace(domain);
+        ((IResLoc)this).setPath(path);
     }
 }

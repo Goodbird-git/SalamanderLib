@@ -13,7 +13,7 @@ import net.minecraftforge.registries.ForgeRegistries;
 import software.bernie.geckolib3.core.molang.MolangException;
 import com.goodbird.salamanderlib.molang.MolangParser;
 
-import javax.vecmath.Vector3d;
+import com.goodbird.salamanderlib.vecmath.Vector3d;
 import java.util.ArrayList;
 import java.util.List;
 

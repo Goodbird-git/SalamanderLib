@@ -6,7 +6,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;
 import com.goodbird.salamanderlib.molang.expressions.MolangExpression;
 
-import javax.vecmath.Vector3d;
+import com.goodbird.salamanderlib.vecmath.Vector3d;
 
 public abstract class ShapeDirection
 {
