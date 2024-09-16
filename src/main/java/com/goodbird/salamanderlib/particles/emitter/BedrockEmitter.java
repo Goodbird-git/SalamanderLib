@@ -6,6 +6,7 @@ import com.goodbird.salamanderlib.particles.components.*;
 import com.goodbird.salamanderlib.particles.components.appearance.BedrockComponentAppearanceBillboard;
 import com.goodbird.salamanderlib.particles.components.appearance.BedrockComponentCollisionAppearance;
 import com.goodbird.salamanderlib.particles.components.appearance.BedrockComponentParticleMorph;
+import com.goodbird.salamanderlib.particles.components.expiration.BedrockComponentParticleLifetime;
 import com.goodbird.salamanderlib.particles.components.lifetime.BedrockComponentLifetimeLooping;
 import com.goodbird.salamanderlib.particles.components.meta.BedrockComponentInitialization;
 import com.goodbird.salamanderlib.particles.components.motion.BedrockComponentMotionCollision;
@@ -446,12 +447,19 @@ public class BedrockEmitter
     {
         BedrockParticle particle = new BedrockParticle();
 
+        for (IComponentParticleInitialize component : this.scheme.particleInitializes)
+        {
+            if(component instanceof BedrockComponentParticleLifetime)
+                component.apply(this, particle);
+        }
+
         this.setParticleVariables(particle, 0);
         particle.setupMatrix(this);
 
         for (IComponentParticleInitialize component : this.scheme.particleInitializes)
         {
-            component.apply(this, particle);
+            if(!(component instanceof BedrockComponentParticleLifetime))
+                component.apply(this, particle);
         }
 
         if (particle.relativePosition && !particle.relativeRotation)

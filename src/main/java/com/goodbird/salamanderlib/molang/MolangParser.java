@@ -70,6 +70,9 @@ public class MolangParser extends MathBuilder {
     }
 
     public Variable getVariable(String name) {
+        if(name.startsWith("v.")){
+            name = name.replace("v.","variable.");
+        }
         Variable variable = this.currentStatement == null ? null : (Variable)this.currentStatement.locals.get(name);
         if (variable == null) {
             variable = super.getVariable(name);
