@@ -3,9 +3,13 @@ package com.goodbird.salamanderlib.helper;
 import com.goodbird.salamanderlib.mixin.IAdvController;
 import com.goodbird.salamanderlib.mixin.impl.IMatrix4f;
 import com.goodbird.salamanderlib.particles.emitter.BedrockEmitter;
+import com.goodbird.salamanderlib.toast.CustomToast;
 import com.goodbird.salamanderlib.util.PositionUtils;
 import com.mojang.blaze3d.matrix.MatrixStack;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.toasts.IToast;
+import net.minecraft.client.gui.toasts.SystemToast;
+import net.minecraft.util.text.StringTextComponent;
 import org.lwjgl.opengl.GL11;
 import software.bernie.geckolib3.core.IAnimatable;
 import software.bernie.geckolib3.core.controller.AnimationController;
@@ -34,6 +38,8 @@ public class ParticleDrawingHelper {
                 if (emitter.locator != null && model.getBone(locator).isPresent()) {
                     GeoBone bone = model.getBone(locator).get();
                     renderParticle(emitter, matrixStackIn, bone, ticks);
+                }else{
+                    CustomToast.addOrUpdate(Minecraft.getInstance().getToasts(), CustomToast.multiline(Minecraft.getInstance(), "salamanderlib:nolocatorbone", new StringTextComponent("SalamanderLib error"), new StringTextComponent("Can't find bone "+locator+" for drawing particle "+emitter.scheme.identifier)));
                 }
             }
         }

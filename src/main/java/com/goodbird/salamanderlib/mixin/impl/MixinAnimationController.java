@@ -3,7 +3,10 @@ package com.goodbird.salamanderlib.mixin.impl;
 import com.goodbird.salamanderlib.mixin.IAdvController;
 import com.goodbird.salamanderlib.particles.BedrockLibrary;
 import com.goodbird.salamanderlib.particles.emitter.BedrockEmitter;
+import com.goodbird.salamanderlib.toast.CustomToast;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.gui.toasts.SystemToast;
+import net.minecraft.util.text.StringTextComponent;
 import org.apache.commons.lang3.tuple.Pair;
 import org.spongepowered.asm.mixin.Final;
 import org.spongepowered.asm.mixin.Mixin;
@@ -94,6 +97,11 @@ public class MixinAnimationController<T extends IAnimatable> implements IAdvCont
         }
     }
 
+    @Inject(method = "resetEventKeyFrames", at = @At("TAIL"))
+    private void onReset(CallbackInfo ci){
+        executedParticleKeyFrames.clear();
+    }
+
     @Unique
     public List<BedrockEmitter> getEmitters() {
         return emitters;
@@ -127,7 +135,7 @@ public class MixinAnimationController<T extends IAnimatable> implements IAdvCont
             emitter.start();
             emitters.add(emitter);
         }else{
-            Logger.getLogger("SalamanderLib").warning("Unable to find a particle with identifier "+event.effect);
+            CustomToast.addOrUpdate(Minecraft.getInstance().getToasts(), CustomToast.multiline(Minecraft.getInstance(), "salamanderlib:noparticlewithid", new StringTextComponent("SalamanderLib error"), new StringTextComponent("Can't find find a particle with identifier \""+event.effect+"\"")));
         }
     }
 

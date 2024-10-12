@@ -349,7 +349,7 @@ public class BedrockComponentAppearanceBillboard extends BedrockComponentBase im
             this.rotation.rotY(entityYaw / 180 * (float) Math.PI);
             this.transform.mul(this.rotation);
         }
-        else if (this.facing == CameraFacing.EMITTER_YZ)
+        else if (this.facing == CameraFacing.EMITTER_YZ || this.facing == CameraFacing.DIRECTION_X)
         {
             if (!GuiModelRenderer.isRendering())
             {
@@ -364,7 +364,7 @@ public class BedrockComponentAppearanceBillboard extends BedrockComponentBase im
                 this.transform.mul(this.rotation);
             }
         }
-        else if (this.facing == CameraFacing.EMITTER_XZ)
+        else if (this.facing == CameraFacing.EMITTER_XZ || this.facing == CameraFacing.DIRECTION_Y)
         {
             if (!GuiModelRenderer.isRendering())
             {
@@ -379,7 +379,7 @@ public class BedrockComponentAppearanceBillboard extends BedrockComponentBase im
                 this.transform.mul(this.rotation);
             }
         }
-        else if (this.facing == CameraFacing.EMITTER_XY)
+        else if (this.facing == CameraFacing.EMITTER_XY || this.facing == CameraFacing.DIRECTION_Z)
         {
             if (!GuiModelRenderer.isRendering())
             {

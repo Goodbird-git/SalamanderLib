@@ -187,6 +187,9 @@ public class BedrockSchemeJsonAdapter implements JsonDeserializer<BedrockScheme>
 
             if (!texture.equals("textures/particle/particles"))
             {
+                if(!texture.endsWith(".png") && !texture.endsWith(".jpg") && !texture.endsWith(".gif")){
+                    texture+=".png";
+                }
                 scheme.texture = RLUtils.create(texture);
             }
         }
